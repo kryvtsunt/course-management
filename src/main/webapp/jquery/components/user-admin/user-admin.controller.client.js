@@ -1,20 +1,24 @@
 
-//IIFE
+var tbody;
+var template;
+var users;
+
+//IIFE = Immediately-invoked function expression
 (function(){
-	var h1 = $('h1');
-	h1.css('color','red');
-	
-	var tr = $('.template');
-	var tr1 = tr.clone();
-	var tbody = $('tbody');
-	
-	var users = [{username: 'bob'}, {username: 'charlie'}]
-	
+	template = $('.template');
+	tbody = $('tbody');
+	var promise = fetch('http://localhost:8080/api/user');
+	promise.then(function(response){
+		return response.json();
+		}).then(renderUsers)
+})()
+
+function renderUsers(users) {
 	for (var i=0; i<users.length; i++){
 		var user = users[i];
-		var clone = tr.clone();
+		var clone = template.clone();
 		clone.find('.username')
 				.html(user.username);
 		tbody.append(clone)
 	}
-})()
+}
