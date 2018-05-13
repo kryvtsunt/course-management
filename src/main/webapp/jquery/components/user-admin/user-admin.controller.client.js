@@ -1,12 +1,14 @@
 var tbody;
 var template;
 var users;
+var userService = new UserServiceClient();
 
 //IIFE = Immediately-invoked function expression
 (function () {
     tbody = $('tbody');
     template = $('.template');
     $('#createUser').click(createUser);
+
     var promise = fetch('http://localhost:8080/api/user');
     promise.then(function (response) {
         return response.json();
@@ -34,12 +36,5 @@ function createUser() {
         firstName: firstName,
         lastName: lastName
     };
-
-    fetch('http://localhost:8080/api/user', {
-        method: 'post',
-        body: JSON.stringify(user),
-        headers: {
-            'content-type' : 'application/json'
-        }
-    });
+    userService.createUser(user);
 }
