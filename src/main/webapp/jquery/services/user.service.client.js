@@ -2,7 +2,7 @@ function UserServiceClient() {
     this.createUser = createUser;
     this.findAllUsers = findAllUsers;
     // this.findUserById = findUserById;
-    // this.deleteUser = deleteUser;
+    this.deleteUser = deleteUser;
     // this.updateUser = updateUser;
     this.url = 'http://localhost:8080/api/user';
     var self = this;

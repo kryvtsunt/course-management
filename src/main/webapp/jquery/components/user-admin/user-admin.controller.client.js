@@ -21,10 +21,26 @@ function renderUsers(users) {
     for (var i = 0; i < users.length; i++) {
         var user = users[i];
         var clone = template.clone();
+        clone.attr('id', user.id);
+        clone.find('.delete').click(deleteUser);
+        clone.find('.edit').click(editUser);
         clone.find('.username')
-            .html(user.username);
+            .html(user.username)
         tbody.append(clone)
     }
+}
+
+function deleteUser(event) {
+var deleteBtn = $(event.currentTarget);
+var uderId = deleteBtn
+    .parent()
+    .parent()
+    .attribute('id');
+userService.deleteUser(userId);
+}
+
+function editUser(event) {
+
 }
 
 function createUser() {
