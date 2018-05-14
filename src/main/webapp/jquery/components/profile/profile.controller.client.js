@@ -18,7 +18,18 @@ function updateUser(){
         firstName: $firstName.val(),
         lastName: $lastName.val()
     };
-    userService.updateUser(12, user);
+    userService
+        .updateUser(122, user)
+        .then(success);
+}
+
+function success(response){
+    if (response === null){
+        alert("Nothing to update");
+    }
+    else {
+        alert("User was updated");
+    }
 }
 
 function findUserById(userId) {
