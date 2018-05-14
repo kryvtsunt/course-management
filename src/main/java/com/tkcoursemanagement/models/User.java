@@ -1,4 +1,4 @@
-package com.example.tkcoursemanagement.models;
+package com.tkcoursemanagement.models;
 
 import java.util.Date;
 

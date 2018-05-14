@@ -1,4 +1,4 @@
-package com.example.tkcoursemanagement.services;
+package com.tkcoursemanagement.services;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.tkcoursemanagement.models.User;
-import com.example.tkcoursemanagement.repositories.UserRepository;
+import com.tkcoursemanagement.models.User;
+import com.tkcoursemanagement.repositories.UserRepository;
 
 @RestController
 public class UserService {
