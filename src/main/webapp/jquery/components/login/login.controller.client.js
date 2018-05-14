@@ -12,7 +12,7 @@ var $userRowTemplate, $tbody;
 (function () {
     tbody = $('tbody');
     template = $('.templateAdmin');
-    $('.createBtn').click(createUser);
+    $('.tk-create-btn').click(createUser);
     findAllUsers();
 })()
 
@@ -82,17 +82,17 @@ function renderUsers(users) {
         var user = users[i];
         var clone = template.clone();
         clone.attr('id', user.id);
-        clone.find('.deleteBtn').click(deleteUser);
-        clone.find('.updateBtn').click(updateUser);
-        clone.find('.usernameDat')
+        clone.find('.tk-delete-btn').click(deleteUser);
+        clone.find('.tk-update-btn').click(updateUser);
+        clone.find('.tk-username')
             .html(user.username)
-        clone.find('.passwordDat')
+        clone.find('.tk-password')
             .html(user.password)
-        clone.find('.firstNameDat')
+        clone.find('.tk-first-name')
             .html(user.firstName)
-        clone.find('.lastNameDat')
+        clone.find('.tk-last-name')
             .html(user.lastName)
-        clone.find('.roleDat')
+        clone.find('.tk-role')
             .html(user.role)
         tbody.append(clone)
     }

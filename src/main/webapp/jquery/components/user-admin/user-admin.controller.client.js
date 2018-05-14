@@ -11,17 +11,17 @@ var $userRowTemplate, $tbody;
 // Main function
 (function () {
     tbody = $('tbody');
-    template = $('#templateAdmin');
-    $('.createBtn').click(createUser);
+    template = $('#tk-template-user');
+    $('.tk-create-btn').click(createUser);
     findAllUsers();
 })()
 
 function createUser() {
-    var username = $('#usernameFld').val();
-    var password = $('#passwordFld').val();
-    var firstName = $('#firstNameFld').val();
-    var lastName = $('#lastNameFld').val();
-    var role = $('#roleFld').val();
+    var username = $('#tk-username-fld').val();
+    var password = $('#tk-password-fld').val();
+    var firstName = $('#tk-first-name-fld').val();
+    var lastName = $('#tk-last-name-fld').val();
+    var role = $('#tk-role-fld').val();
     var user = {
         username: username,
         password: password,
@@ -31,7 +31,6 @@ function createUser() {
     };
     userService.createUser(user)
         .then(findAllUsers);
-
 }
 
 function findAllUsers() {
@@ -82,17 +81,17 @@ function renderUsers(users) {
         var user = users[i];
         var clone = template.clone();
         clone.attr('id', user.id);
-        clone.find('.deleteBtn').click(deleteUser);
-        clone.find('.updateBtn').click(updateUser);
-        clone.find('.usernameDat')
+        clone.find('.tk-delete-btn').click(deleteUser);
+        clone.find('.tk-edit-btn').click(updateUser);
+        clone.find('.tk-username')
             .html(user.username)
-        clone.find('.passwordDat')
+        clone.find('.tk-password')
             .html(user.password)
-        clone.find('.firstNameDat')
+        clone.find('.tk-first-name')
             .html(user.firstName)
-        clone.find('.lastNameDat')
+        clone.find('.tk-last-name')
             .html(user.lastName)
-        clone.find('.roleDat')
+        clone.find('.tk-role')
             .html(user.role)
         tbody.append(clone)
     }
