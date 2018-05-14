@@ -11,13 +11,8 @@ var userService = new UserServiceClient();
     findAllUsers();
 })()
 
-function findAllUsers() {
-    userService
-        .findAllUsers()
-        .then(renderUsers);
-}
-
 function renderUsers(users) {
+    tbody.empty();
     for (var i = 0; i < users.length; i++) {
         var user = users[i];
         var clone = template.clone();
@@ -31,12 +26,15 @@ function renderUsers(users) {
 }
 
 function deleteUser(event) {
-var deleteBtn = $(event.currentTarget);
-var uderId = deleteBtn
-    .parent()
-    .parent()
-    .attribute('id');
-userService.deleteUser(userId);
+    var deleteBtn = $(event.currentTarget);
+    var userId = deleteBtn
+        .parent()
+        .parent()
+        .attr('id');
+
+    userService
+        .deleteUser(userId)
+        .then(findAllUsers);
 }
 
 function editUser(event) {
@@ -58,4 +56,9 @@ function createUser() {
         .then(findAllUsers);
 
 
+}
+
+
+function findAllUsers() {
+    userService.findAllUsers().then(renderUsers);
 }
