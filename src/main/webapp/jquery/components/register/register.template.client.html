@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"/>
-    <title>Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="register.style.client.css" rel="stylesheet" />
+    <title>Admin</title>
 
 </head>
 <body>
 <div class="container">
-    <h1>Profile</h1>
+    <h1>Sign Up</h1>
     <form>
         <div class="form-group row">
             <label for="username" class="col-sm-2 col-form-label">Username</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="username">
+                <input type="text" class="form-control" id="username" placeholder="Username">
             </div>
         </div>
         <div class="form-group row">
@@ -23,18 +25,13 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+            <label for="verifyPassword" class="col-sm-2 col-form-label">Verify Password</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                <input type="text" class="form-control" id="verifyPassword" placeholder="Verify Password">
             </div>
         </div>
-        <div class="form-group row">
-            <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-            </div>
-        </div>
-        <button id="updateBtn" type="button" class="btn btn-primary btn-block">Update</button>
+        <button id="signUpBtn" type="button" class="btn btn-primary btn-block">Sign Up</button>
+        <a class="btn btn-primary btn-block" href="../user-admin/user-admin.template.client.html" role="button">Log In</a>
     </form>
 
 </div>
@@ -43,7 +40,6 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script src="../../services/user.service.client.js"></script>
-<script src="profile.controller.client.js"></script>
+<script src="register.controller.client.js"></script>
 </body>
-
 </html>
