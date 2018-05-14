@@ -71,7 +71,7 @@ function renderUsers(users) {
         var clone = template.clone();
         clone.attr('id', user.id);
         clone.find('.delete').click(deleteUser);
-        clone.find('.edit').click(editUser);
+        clone.find('.edit').click(updateUser);
         clone.find('.username')
             .html(user.username)
         tbody.append(clone)
