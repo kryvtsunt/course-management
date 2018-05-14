@@ -11,8 +11,8 @@ var $userRowTemplate, $tbody;
 // Main function
 (function () {
     tbody = $('tbody');
-    template = $('.template');
-    $('#createUser').click(createUser);
+    template = $('.templateAdmin');
+    $('.createBtn').click(createUser);
     findAllUsers();
 })()
 
@@ -21,11 +21,13 @@ function createUser() {
     var password = $('#passwordFld').val();
     var firstName = $('#firstNameFld').val();
     var lastName = $('#lastNameFld').val();
+    var role = $('#roleFld').val();
     var user = {
         username: username,
         password: password,
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        role: role
     };
     userService.createUser(user)
         .then(findAllUsers);
@@ -45,6 +47,7 @@ function deleteUser(event) {
     var userId = deleteBtn
         .parent()
         .parent()
+        .parent()
         .attr('id');
 
     userService
@@ -57,7 +60,16 @@ function selectUser() {
 }
 
 function updateUser(event) {
-    //TODO
+    var updateBtn = $(event.currentTarget);
+    var userId = updateBtn
+        .parent()
+        .parent()
+        .parent()
+        .attr('id');
+
+    userService
+        .updateUser(userId)
+        .then(findAllUsers);
 }
 
 function renderUser(user) {
@@ -70,10 +82,18 @@ function renderUsers(users) {
         var user = users[i];
         var clone = template.clone();
         clone.attr('id', user.id);
-        clone.find('.delete').click(deleteUser);
-        clone.find('.edit').click(updateUser);
-        clone.find('.username')
+        clone.find('.deleteBtn').click(deleteUser);
+        clone.find('.updateBtn').click(updateUser);
+        clone.find('.usernameDat')
             .html(user.username)
+        clone.find('.passwordDat')
+            .html(user.password)
+        clone.find('.firstNameDat')
+            .html(user.firstName)
+        clone.find('.lastNameDat')
+            .html(user.lastName)
+        clone.find('.roleDat')
+            .html(user.role)
         tbody.append(clone)
     }
 }
