@@ -11,7 +11,7 @@ var $userRowTemplate, $tbody;
 // Main function
 (function () {
     tbody = $('tbody');
-    template = $('.templateAdmin');
+    template = $('#templateAdmin');
     $('.createBtn').click(createUser);
     findAllUsers();
 })()
