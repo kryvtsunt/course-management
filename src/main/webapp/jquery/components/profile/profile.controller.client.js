@@ -9,8 +9,7 @@ var $updateBtn;
     $username = $("#username");
     $firstName = $("#firstName")
     $lastName = $("#lastName");
-    $updateBtn = $("#updateBtn")
-        .click(updateUser);
+    $updateBtn = $("#updateBtn").click(updateUser);
     findUserById(122);
 })()
 
@@ -19,9 +18,7 @@ function updateUser(){
         firstName: $firstName.val(),
         lastName: $lastName.val()
     };
-
-    userService
-        .updateUser(user);
+    userService.updateUser(12, user);
 }
 
 function findUserById(userId) {
