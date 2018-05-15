@@ -1,6 +1,4 @@
 var userService = new UserServiceClient();
-var tbody;
-var template;
 var username;
 var password;
 
@@ -15,11 +13,20 @@ var password;
 function login() {
     username = $("#username").val();
     password = $("#inputPassword").val();
-    console.log(username + " " + password);
-    userService.login(username, password)
+    userService.login(username, password).then(success);
 }
 
+function success(response) {
+    if (response === null) {
+        alert("Not a valid user");
+    }
+    else {
+        console.log(response);
+        window.location.href = "../profile/profile.template.client.html";
+    }
+}
 
+//resposne status
 
 
 

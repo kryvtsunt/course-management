@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mysql.fabric.Response;
 import com.tkcoursemanagement.models.User;
 import com.tkcoursemanagement.repositories.UserRepository;
 
@@ -47,7 +49,7 @@ public class UserService {
 	}
 	
 	@PutMapping("/api/user/{userId}")
-	public User updateUser(@PathVariable("userId") int id, @RequestBody User newUser) {
+	public User updateUser(@PathVariable("userId") int id, @RequestBody User newUser, HttpServletResponse response) {
 		Optional<User> data = repository.findById(id);
 		if (data.isPresent()) { 
 			User user = data.get();
@@ -58,7 +60,10 @@ public class UserService {
 			repository.save(user);
 			return user;
 		}
-		else return null;
+		else {
+			response.setStatus(10);
+			return null;
+		}
 	}
 	@GetMapping("/api/session/set/{attr}/{value}")
 	public String setSessionAttribute(
@@ -82,25 +87,34 @@ public class UserService {
 		return "session invalidated";
 	}
 	
-	List<User> users = new ArrayList<User>();
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) {
 		session.setAttribute("currentUser", user);
-		users.add(user);
+
+		repository.save(user);
 		return user;
 	}
 	
 	@GetMapping("/api/profile")
 	public User profile(HttpSession session) {
+		if (session.isNew()) {
+			return repository.findById(42).get();
+		}
+		else {
 		User currentUser = (User) session.getAttribute("currentUser");
 		return currentUser;
+		}
 	}
 	
 	@PostMapping("/api/login")
-	public User login(@RequestBody User user, HttpSession session) {
+	public User login(@RequestBody User user, HttpSession session, HttpServletResponse response) {
 		session.setAttribute("currentUser", user);
 		List<User> users = (List<User>) repository.findUserByCredentials(user.getUsername(), user.getPassword());
-		return users.get(0);
+		if (users.isEmpty()) { 
+			response.setStatus(10);
+			return null; 
+			}
+		else {return users.get(0); }
 	}
 	
 	@PostMapping("/api/logout")
