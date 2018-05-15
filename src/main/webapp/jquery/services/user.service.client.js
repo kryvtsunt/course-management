@@ -6,6 +6,7 @@ function UserServiceClient() {
     this.updateUser = updateUser;
     this.login = login;
     this.loginU = 'http://localhost:8080/api/login';
+    this.profileU = 'http://localhost:8080/api/profile';
     this.url = 'http://localhost:8080/api/user';
     var self = this;
 
@@ -17,6 +18,10 @@ function UserServiceClient() {
                 'content-type' : 'application/json'
             }
         });
+    }
+
+    function profile(){
+        return fetch(self.profileU);
     }
 
     function findUserById(userId){
