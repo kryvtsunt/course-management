@@ -26,6 +26,7 @@ var headClone;
     template = $('#tk-template-user');
     $('.tk-create-btn').click(createUser);
     $('.tk-update-btn').click(updateUser);
+    $('.tk-refresh-btn').click(refreshForm);
     findAllUsers();
 })()
 
@@ -66,11 +67,17 @@ function updateUser(event) {
         lastName: lastName,
         role: role
     };
-    $('thead').replaceWith(headClone.clone());
+    refreshForm();
     userService.updateUser(userId,user)
         .then(findAllUsers);
 }
 
+function refreshForm() {
+    $('thead').replaceWith(headClone.clone());
+    $('.tk-create-btn').click(createUser);
+    $('.tk-update-btn').click(updateUser);
+    $('.tk-refresh-btn').click(refreshForm);
+}
 function findAllUsers() {
     userService.findAllUsers().then(renderUsers);
 }
