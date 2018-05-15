@@ -5,12 +5,12 @@ function UserServiceClient() {
     this.deleteUser = deleteUser;
     this.updateUser = updateUser;
     this.login = login;
-    this.login = 'http://localhost:8080/api/login';
+    this.loginU = 'http://localhost:8080/api/login';
     this.url = 'http://localhost:8080/api/user';
     var self = this;
 
     function login(username, password){
-        return fetch(self.login, {
+        return fetch(self.loginU, {
             method: 'post',
             body: JSON.stringify({username: username, password: password}),
             headers: {

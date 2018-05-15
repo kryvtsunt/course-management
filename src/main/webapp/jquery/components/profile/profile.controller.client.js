@@ -1,25 +1,27 @@
 var userService = new UserServiceClient();
 var $username;
+var $password;
 var $firstName;
 var $lastName;
 var $updateBtn;
+var $role;
+var user;
 
 //IIFE = Immediately-invoked function expression
 (function () {
-    $username = $("#username");
-    $firstName = $("#firstName")
-    $lastName = $("#lastName");
+    $username = $("#usernameFld");
+    $password = $("#passwordFld");
+    $firstName = $("#firstNameFld")
+    $lastName = $("#lastNameFld");
+    $role = $("#roleFld");
     $updateBtn = $("#updateBtn").click(updateUser);
-    findUserById(122);
+    findUserById(32);
 })()
 
 function updateUser(){
-    var user = {
-        firstName: $firstName.val(),
-        lastName: $lastName.val()
-    };
+    var user = new User($username.val(), $password.val(), $firstName.val(),$lastName.val(), $role.val());
     userService
-        .updateUser(122, user)
+        .updateUser(32, user)
         .then(success);
 }
 
@@ -34,12 +36,13 @@ function success(response){
 
 function findUserById(userId) {
     userService
-        .findUserById(userId)
-        .then(renderUser);
+        .findUserById(userId).then(renderUser);
 }
 
 function renderUser(user) {
     $username.val(user.username);
+    $password.val(user.password);
     $firstName.val(user.firstName);
     $lastName.val(user.lastName);
+    $role.val(user.role);
 }
