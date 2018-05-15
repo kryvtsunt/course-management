@@ -16,9 +16,9 @@ public class User {
 	private String password;
 	private String firstName;
 	private String lastName;
+	private String role;
 	private String phone;
 	private String email;
-	private String role;
 	private Date dateOfBirth;
 
 	public int getId() {

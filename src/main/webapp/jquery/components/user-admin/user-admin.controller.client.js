@@ -6,10 +6,11 @@ var $removeBtn, $editBtn, $createBtn;
 var $firstNameFld, $lastNameFld;
 var $userRowTemplate, $tbody;
 
-var $username
-var $firstName
-var $lastName
-var $form
+var $username;
+var $firstName;
+var $lastName;
+var password;
+var $form;
 var headClone;
 
 
@@ -18,6 +19,7 @@ var headClone;
 (function () {
     $form = $("#formAdmin");
     $username = $("#tk-username-fld");
+    $password = $("#tk-password-fld");
     $firstName = $("#tk-first-name-fld")
     $lastName = $("#tk-last-name-fld");
 
@@ -36,13 +38,9 @@ function createUser() {
     var firstName = $('#tk-first-name-fld').val();
     var lastName = $('#tk-last-name-fld').val();
     var role = $('#tk-role-fld').val();
-    var user = {
-        username: username,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        role: role
-    };
+
+    var user = new User(username, password, firstName, lastName, role);
+    refreshForm();
     userService.createUser(user)
         .then(findAllUsers);
 }
@@ -82,11 +80,6 @@ function findAllUsers() {
     userService.findAllUsers().then(renderUsers);
 }
 
-// function findUserById() {
-//     userService
-//         .findUserById(userId)
-//         .then(renderUser);
-// }
 
 function deleteUser(event) {
     var deleteBtn = $(event.currentTarget);
@@ -118,6 +111,7 @@ function editUser(event) {
 function renderUser(user) {
     $form.attr("id", user.id);
     $username.val(user.username);
+    $password.val(user.password);
     $firstName.val(user.firstName);
     $lastName.val(user.lastName);
 }
