@@ -10,6 +10,7 @@ var $username
 var $firstName
 var $lastName
 var $form
+var headClone;
 
 
 //IIFE = Immediately-invoked function expression
@@ -20,6 +21,7 @@ var $form
     $firstName = $("#tk-first-name-fld")
     $lastName = $("#tk-last-name-fld");
 
+    headClone =$('thead').clone();
     tbody = $('tbody');
     template = $('#tk-template-user');
     $('.tk-create-btn').click(createUser);
@@ -64,7 +66,7 @@ function updateUser(event) {
         lastName: lastName,
         role: role
     };
-    console.log(user.username);
+    $('thead').replaceWith(headClone.clone());
     userService.updateUser(userId,user)
         .then(findAllUsers);
 }
