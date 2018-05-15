@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +22,9 @@ import com.tkcoursemanagement.repositories.UserRepository;
 
 @RestController
 public class UserService {
+	
+	private HttpSession session;
+	
 	@Autowired
 	UserRepository repository; 
 	
@@ -49,10 +53,9 @@ public class UserService {
 	}
 	
 	@PutMapping("/api/user/{userId}")
-	public User updateUser(@PathVariable("userId") int id, @RequestBody User newUser, HttpServletResponse response) {
-		Optional<User> data = repository.findById(id);
-		if (data.isPresent()) { 
-			User user = data.get();
+	public User updateUser(@RequestBody User newUser, HttpServletResponse response) {
+		User user = (User) session.getAttribute("currentUser");
+		if (!user.equals(null)) { 
 			user.setFirstName(newUser.getFirstName());
 			user.setLastName(newUser.getLastName());
 			user.setPassword(newUser.getPassword());
@@ -96,25 +99,25 @@ public class UserService {
 	}
 	
 	@GetMapping("/api/profile")
-	public User profile(HttpSession session) {
-		if (session.isNew()) {
-			return repository.findById(42).get();
-		}
-		else {
+	public User profile() {
+		System.out.print(session.getId());
 		User currentUser = (User) session.getAttribute("currentUser");
 		return currentUser;
-		}
 	}
 	
 	@PostMapping("/api/login")
-	public User login(@RequestBody User user, HttpSession session, HttpServletResponse response) {
-		session.setAttribute("currentUser", user);
+	public User login(@RequestBody User user, HttpServletResponse response, HttpServletRequest request) {
+
 		List<User> users = (List<User>) repository.findUserByCredentials(user.getUsername(), user.getPassword());
 		if (users.isEmpty()) { 
 			response.setStatus(10);
 			return null; 
 			}
-		else {return users.get(0); }
+		else {
+			session = request.getSession(); 
+			session.setAttribute("currentUser", users.get(0));
+			return users.get(0); 
+			}
 	}
 	
 	@PostMapping("/api/logout")

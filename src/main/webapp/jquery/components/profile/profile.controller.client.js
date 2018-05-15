@@ -15,7 +15,6 @@ var user;
     $lastName = $("#lastNameFld");
     $role = $("#roleFld");
     $updateBtn = $("#updateBtn").click(updateUser);
-    //findUserById(32);
     getUser();
 })()
 
@@ -26,7 +25,7 @@ function getUser(){
 function updateUser(){
     var user = new User($username.val(), $password.val(), $firstName.val(),$lastName.val(), $role.val());
     userService
-        .updateUser(32, user)
+        .updateUser(user)
         .then(success);
 }
 
