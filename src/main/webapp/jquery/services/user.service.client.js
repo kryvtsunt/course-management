@@ -45,11 +45,11 @@ function UserServiceClient() {
             }
         })
             .then(function (response){
-                if(response.bodyUsed) {
+              //  if(response.bodyUsed) {
                     return response.json();
-                } else {
-                    return null;
-                }
+               // } else {
+               //     return null;
+               // }
             });
     }
 
