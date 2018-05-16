@@ -59,8 +59,12 @@ public class UserService {
 		if (!user.equals(null)) {
 			user.setFirstName(newUser.getFirstName());
 			user.setLastName(newUser.getLastName());
+			user.setUsername(newUser.getUsername());
 			user.setPassword(newUser.getPassword());
 			user.setRole(newUser.getRole());
+			user.setEmail(newUser.getEmail());
+			user.setPhone(newUser.getPhone());
+			user.setDateOfBirth(newUser.getDateOfBirth());
 			repository.save(user);
 			return user;
 		} else {
@@ -74,8 +78,12 @@ public class UserService {
 		User user = repository.findById(id).get();
 		user.setFirstName(newUser.getFirstName());
 		user.setLastName(newUser.getLastName());
+		user.setUsername(newUser.getUsername());
 		user.setPassword(newUser.getPassword());
 		user.setRole(newUser.getRole());
+		user.setEmail(newUser.getEmail());
+		user.setPhone(newUser.getPhone());
+		user.setDateOfBirth(newUser.getDateOfBirth());
 		repository.save(user);
 		return user;
 
@@ -108,10 +116,10 @@ public class UserService {
 	}
 
 	@GetMapping("/api/profile")
-	public User profile() {
-		System.out.print(session.getId());
+	public Optional<User> profile() {
 		User currentUser = (User) session.getAttribute("currentUser");
-		return currentUser;
+		Optional<User> user = repository.findById(currentUser.getId());
+		return user;
 	}
 
 	@PostMapping("/api/login")
@@ -133,3 +141,9 @@ public class UserService {
 		session.invalidate();
 	}
 }
+
+
+// where to do logic: check password / verify password
+// 2 update user mappings
+// do i need to pass id at all ?
+// no mapping ? possible ?

@@ -20,17 +20,17 @@ var headClone;
     $form = $("#formAdmin");
     $username = $("#tk-username-fld");
     $password = $("#tk-password-fld");
-    $firstName = $("#tk-first-name-fld")
+    $firstName = $("#tk-first-name-fld");
     $lastName = $("#tk-last-name-fld");
+    $role = $("#tk-role-fld");
 
-    //headClone =$('thead').clone();
     tbody = $('tbody');
     template = $('#tk-template-user');
     $('.tk-create-btn').click(createUser);
     $('.tk-update-btn').click(updateUser);
     $('.tk-refresh-btn').click(refreshForm);
     findAllUsers();
-})()
+})();
 
 function createUser() {
     var username = $('#tk-username-fld').val();
@@ -65,7 +65,7 @@ function updateUser(event) {
         lastName: lastName,
         role: role
     };
-    userService.updateUser2(userId,user)
+    userService.updateUser(userId,user)
         .then(findAllUsers);
     refreshForm();
 }
@@ -75,11 +75,7 @@ function refreshForm() {
     $password.val(null);
     $firstName.val(null);
     $lastName.val(null);
-    //$form.attr("id", "formAdmin");
-
-     // $('.tk-create-btn').click(createUser);
-     // $('.tk-update-btn').click(updateUser);
-     // $('.tk-refresh-btn').click(refreshForm);
+    //$form.attr("id", "formAdmin");          /// maybe keep depending on implementation
 }
 function findAllUsers() {
     userService.findAllUsers().then(renderUsers);
@@ -119,6 +115,7 @@ function renderUser(user) {
     $password.val(user.password);
     $firstName.val(user.firstName);
     $lastName.val(user.lastName);
+    $role.val(user.role);
 }
 
 

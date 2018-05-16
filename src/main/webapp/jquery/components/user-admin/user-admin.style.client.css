@@ -6,3 +6,8 @@ h1 {
 #tk-template-user{
     display: none;
 }
+
+
+.tk-password {
+    -webkit-text-security: disc;
+}

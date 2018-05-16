@@ -4,7 +4,7 @@ function UserServiceClient() {
     this.findUserById = findUserById;
     this.deleteUser = deleteUser;
     this.updateUser = updateUser;
-    this.updateUser2 = updateUser2;
+    this.updateUserSession = updateUserSession;
     this.login = login;
     this.logout = logout;
     this.profile = profile;
@@ -90,25 +90,25 @@ function UserServiceClient() {
         });
     }
 
-    function updateUser(userId, user) {
-        // return fetch(self.url + '/' + "session", {
-        //     method: 'put',
-        //     body: JSON.stringify(user),
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     }
-        // })
-        //     .then(function (response) {
-        //         if (response.status == 10) {
-        //             return null;
-        //         }
-        //         else {
-        //             return response.json();
-        //         }
-        //     });
+    function updateUserSession(user) {
+        return fetch(self.url + '/' + "session", {
+            method: 'put',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                if (response.status == 10) {
+                    return null;
+                }
+                else {
+                    return response.json();
+                }
+            });
     }
 
-    function updateUser2(userId, user) {
+    function updateUser(userId, user) {
         return fetch(self.url + '/' + userId, {
             method: 'put',
             body: JSON.stringify(user),

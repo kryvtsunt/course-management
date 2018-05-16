@@ -16,7 +16,6 @@ var user;
     $role = $("#roleFld");
     $("#updateBtn").click(updateUser);
     $("#LogOut").click(logout);
-
     getUser();
 })()
 
@@ -32,7 +31,7 @@ function logout(){
 function updateUser(){
     var user = new User($username.val(), $password.val(), $firstName.val(),$lastName.val(), $role.val());
     userService
-        .updateUser(0, user)
+        .updateUserSession(user)
         .then(success);
 }
 
