@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +23,16 @@ import com.mysql.fabric.Response;
 import com.tkcoursemanagement.models.User;
 import com.tkcoursemanagement.repositories.UserRepository;
 
+
+
 @RestController
 public class UserService {
 
+	
+	@Autowired
+	public JavaMailSender emailSender;
+
+	@Autowired
 	private HttpSession session;
 
 	@Autowired
@@ -54,7 +63,7 @@ public class UserService {
 	}
 
 	@PutMapping("/api/user/session")
-	public User updateUser(@RequestBody User newUser, HttpServletResponse response) {
+	public User updateUserSession(@RequestBody User newUser, HttpServletResponse response) {
 		User user = (User) session.getAttribute("currentUser");
 		if (!user.equals(null)) {
 			user.setFirstName(newUser.getFirstName());
@@ -74,7 +83,7 @@ public class UserService {
 	}
 
 	@PutMapping("/api/user/{userId}")
-	public User updateUser2(@RequestBody User newUser, @PathVariable("userId") int id) {
+	public User updateUser(@RequestBody User newUser, @PathVariable("userId") int id) {
 		User user = repository.findById(id).get();
 		user.setFirstName(newUser.getFirstName());
 		user.setLastName(newUser.getLastName());
@@ -140,10 +149,13 @@ public class UserService {
 	public void logout() {
 		session.invalidate();
 	}
+
+	@PostMapping("/api/forgot")
+	public void forgotPassword() {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo("kryvtsun.t@husky.neu.edu");
+		message.setSubject("Reset password");
+		message.setText("Follow this link to reset your password");
+		emailSender.send(message);
+	}
 }
-
-
-// where to do logic: check password / verify password
-// 2 update user mappings
-// do i need to pass id at all ?
-// no mapping ? possible ?

@@ -9,15 +9,17 @@ function UserServiceClient() {
     this.logout = logout;
     this.profile = profile;
     this.register = register;
-    this.loginU = 'http://localhost:8080/api/login';
-    this.logoutU = 'http://localhost:8080/api/logout';
-    this.registerU = 'http://localhost:8080/api/register';
-    this.profileU = 'http://localhost:8080/api/profile';
-    this.url = 'http://localhost:8080/api/user';
+    this.forgotPassword = forgotPassword;
+    this.loginUrl = 'http://localhost:8080/api/login';
+    this.logoutUrl = 'http://localhost:8080/api/logout';
+    this.registerUrl = 'http://localhost:8080/api/register';
+    this.profileUrl = 'http://localhost:8080/api/profile';
+    this.userUrl = 'http://localhost:8080/api/user';
+    this.forgotUrl = 'http://localhost:8080/api/forgot'
     var self = this;
 
     function login(username, password) {
-        return fetch(self.loginU, {
+        return fetch(self.loginUrl, {
             method: 'post',
             body: JSON.stringify({username: username, password: password}),
             headers: {
@@ -35,7 +37,7 @@ function UserServiceClient() {
     }
 
     function logout() {
-        return fetch(self.logoutU, {
+        return fetch(self.logoutUrl, {
             method: 'post',
             headers: {
                 'content-type': 'application/json'
@@ -44,7 +46,7 @@ function UserServiceClient() {
     }
 
     function register(username, password) {
-        return fetch(self.registerU, {
+        return fetch(self.registerUrl, {
             method: 'post',
             body: JSON.stringify({username: username, password: password}),
             headers: {
@@ -62,7 +64,7 @@ function UserServiceClient() {
     }
 
     function profile() {
-        return fetch(self.profileU)
+        return fetch(self.profileUrl)
             .then(function (response) {
                 if (response.status == 10) {
                     return null;
@@ -73,15 +75,25 @@ function UserServiceClient() {
             });
     }
 
+    function forgotPassword() {
+        return fetch(self.forgotUrl, {
+            method: 'post',
+            body: JSON.stringify({email: "kryvtsun.t@husky.neu.edu"}),
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+    }
+
     function findUserById(userId) {
-        return fetch(self.url + '/' + userId)
+        return fetch(self.userUrl + '/' + userId)
             .then(function (response) {
                 return response.json();
             });
     }
 
     function createUser(user) {
-        return fetch(self.url, {
+        return fetch(self.userUrl, {
             method: 'post',
             body: JSON.stringify(user),
             headers: {
@@ -91,7 +103,7 @@ function UserServiceClient() {
     }
 
     function updateUserSession(user) {
-        return fetch(self.url + '/' + "session", {
+        return fetch(self.userUrl + '/' + "session", {
             method: 'put',
             body: JSON.stringify(user),
             headers: {
@@ -109,7 +121,7 @@ function UserServiceClient() {
     }
 
     function updateUser(userId, user) {
-        return fetch(self.url + '/' + userId, {
+        return fetch(self.userUrl + '/' + userId, {
             method: 'put',
             body: JSON.stringify(user),
             headers: {
@@ -129,13 +141,13 @@ function UserServiceClient() {
 
 
     function deleteUser(userId) {
-        return fetch(self.url + '/' + userId, {
+        return fetch(self.userUrl + '/' + userId, {
             method: 'delete'
         })
     }
 
     function findAllUsers() {
-        return fetch(self.url).then(function (response) {
+        return fetch(self.userUrl).then(function (response) {
             return response.json();
         });
     }
