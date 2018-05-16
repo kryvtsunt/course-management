@@ -151,11 +151,17 @@ public class UserService {
 	}
 
 	@PostMapping("/api/forgot")
-	public void forgotPassword() {
+	public void forgotPassword(@RequestBody User user) {
+		//User u = (User) repository.findUserByEmail(user.getEmail());
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("kryvtsun.t@husky.neu.edu");
+		message.setTo(user.getEmail());
 		message.setSubject("Reset password");
 		message.setText("Follow this link to reset your password");
 		emailSender.send(message);
+	}
+	
+	@GetMapping("/api/reset/{userId}")
+	public void resetPassword() {
+
 	}
 }

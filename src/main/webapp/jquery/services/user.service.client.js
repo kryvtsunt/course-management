@@ -75,10 +75,10 @@ function UserServiceClient() {
             });
     }
 
-    function forgotPassword() {
+    function forgotPassword(email) {
         return fetch(self.forgotUrl, {
             method: 'post',
-            body: JSON.stringify({email: "kryvtsun.t@husky.neu.edu"}),
+            body: JSON.stringify(new User(null,null,null,null,null,null,email,null,null)),
             headers: {
                 'content-type': 'application/json'
             }
