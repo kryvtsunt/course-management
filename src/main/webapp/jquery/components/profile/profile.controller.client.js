@@ -14,7 +14,9 @@ var user;
     $firstName = $("#firstNameFld")
     $lastName = $("#lastNameFld");
     $role = $("#roleFld");
-    $updateBtn = $("#updateBtn").click(updateUser);
+    $("#updateBtn").click(updateUser);
+    $("#LogOut").click(logout);
+
     getUser();
 })()
 
@@ -22,10 +24,15 @@ function getUser(){
     userService.profile().then(renderUser);
 }
 
+function logout(){
+    userService.logout();
+    window.location.href = "../login/login.template.client.html";
+}
+
 function updateUser(){
     var user = new User($username.val(), $password.val(), $firstName.val(),$lastName.val(), $role.val());
     userService
-        .updateUser(user)
+        .updateUser(0, user)
         .then(success);
 }
 
@@ -37,6 +44,7 @@ function success(response){
         alert("User was updated");
     }
 }
+
 
 function findUserById(userId) {
     userService

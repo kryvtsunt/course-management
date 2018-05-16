@@ -26,8 +26,6 @@ function success(response) {
     }
 }
 
-//resposne status
-
 
 
 

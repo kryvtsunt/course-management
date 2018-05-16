@@ -23,7 +23,7 @@ var headClone;
     $firstName = $("#tk-first-name-fld")
     $lastName = $("#tk-last-name-fld");
 
-    headClone =$('thead').clone();
+    //headClone =$('thead').clone();
     tbody = $('tbody');
     template = $('#tk-template-user');
     $('.tk-create-btn').click(createUser);
@@ -65,16 +65,21 @@ function updateUser(event) {
         lastName: lastName,
         role: role
     };
-    refreshForm();
-    userService.updateUser(userId,user)
+    userService.updateUser2(userId,user)
         .then(findAllUsers);
+    refreshForm();
 }
 
 function refreshForm() {
-    $('thead').replaceWith(headClone.clone());
-    $('.tk-create-btn').click(createUser);
-    $('.tk-update-btn').click(updateUser);
-    $('.tk-refresh-btn').click(refreshForm);
+    $username.val(null);
+    $password.val(null);
+    $firstName.val(null);
+    $lastName.val(null);
+    //$form.attr("id", "formAdmin");
+
+     // $('.tk-create-btn').click(createUser);
+     // $('.tk-update-btn').click(updateUser);
+     // $('.tk-refresh-btn').click(refreshForm);
 }
 function findAllUsers() {
     userService.findAllUsers().then(renderUsers);
