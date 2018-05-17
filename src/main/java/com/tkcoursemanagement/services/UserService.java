@@ -158,14 +158,14 @@ public class UserService {
 		User user = users.get(0);
 		user.setResetToken(UUID.randomUUID().toString());
 		SimpleMailMessage message = new SimpleMailMessage();
-	
+		String appUrl = request.getScheme() + "://" + request.getServerName() +":"+ request.getServerPort();
 		message.setFrom("support@tk.com");
 		message.setTo(user.getEmail());
 		message.setSubject("Reset password");
 		message.setText("Follow this link to reset your password");
 		message.setSubject("Password Reset Request");
-		message.setText("To reset your password, click the link below:\n" + 
-		"http://localhost:8080/jquery/components/reset-password/reset-password.template.client.html?token=" + user.getResetToken());
+		message.setText("To reset your password, click the link below:\n" + appUrl
+				+ "/jquery/components/reset-password/reset-password.template.client.html?token=" + user.getResetToken());
 		emailSender.send(message);
 	}
 	
@@ -183,6 +183,3 @@ public class UserService {
 		
 	}
 }
-
-
-// String appUrl = request.getScheme() + "://" + request.getServerName();
