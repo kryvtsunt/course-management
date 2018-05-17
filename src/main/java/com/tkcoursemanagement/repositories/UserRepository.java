@@ -16,4 +16,9 @@ extends CrudRepository<User, Integer>{
 	@Query("SELECT u FROM User u WHERE u.email=:email")
 	Iterable<User> findUserByEmail(
 	@Param("email") String email);
+	
+	@Query("SELECT u FROM User u WHERE u.resetToken=:resetToken")
+	Iterable<User> findUserByResetToken(
+	@Param("resetToken") String resetToken);
+	
 }

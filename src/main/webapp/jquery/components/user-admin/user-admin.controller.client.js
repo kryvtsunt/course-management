@@ -20,6 +20,7 @@ var headClone;
     $form = $("#formAdmin");
     $username = $("#tk-username-fld");
     $password = $("#tk-password-fld");
+    $email = $("#tk-email-fld");
     $firstName = $("#tk-first-name-fld");
     $lastName = $("#tk-last-name-fld");
     $role = $("#tk-role-fld");
@@ -35,11 +36,12 @@ var headClone;
 function createUser() {
     var username = $('#tk-username-fld').val();
     var password = $('#tk-password-fld').val();
+    var email = $('#tk-email-fld').val();
     var firstName = $('#tk-first-name-fld').val();
     var lastName = $('#tk-last-name-fld').val();
     var role = $('#tk-role-fld').val();
 
-    var user = new User(username, password, firstName, lastName, role);
+    var user = new User(username, password, firstName, lastName, role, null, email);
     refreshForm();
     userService.createUser(user)
         .then(findAllUsers);
@@ -55,6 +57,7 @@ function updateUser(event) {
 
     var username = $('#tk-username-fld').val();
     var password = $('#tk-password-fld').val();
+    var email = $('#tk-email-fld').val();
     var firstName = $('#tk-first-name-fld').val();
     var lastName = $('#tk-last-name-fld').val();
     var role = $('#tk-role-fld').val();
@@ -63,7 +66,8 @@ function updateUser(event) {
         password: password,
         firstName: firstName,
         lastName: lastName,
-        role: role
+        role: role,
+        email: email
     };
     userService.updateUser(userId,user)
         .then(findAllUsers);
@@ -75,6 +79,8 @@ function refreshForm() {
     $password.val(null);
     $firstName.val(null);
     $lastName.val(null);
+    $role.vall(null);
+    $email.vall(null);
     //$form.attr("id", "formAdmin");          /// maybe keep depending on implementation
 }
 function findAllUsers() {
@@ -113,6 +119,7 @@ function renderUser(user) {
     $form.attr("id", user.id);
     $username.val(user.username);
     $password.val(user.password);
+    $email.val(user.email);
     $firstName.val(user.firstName);
     $lastName.val(user.lastName);
     $role.val(user.role);
@@ -128,15 +135,17 @@ function renderUsers(users) {
         clone.find('.tk-delete-btn').click(deleteUser);
         clone.find('.tk-edit-btn').click(editUser);
         clone.find('.tk-username')
-            .html(user.username)
+            .html(user.username);
         clone.find('.tk-password')
-            .html(user.password)
+            .html(user.password);
+        clone.find('.tk-email')
+            .html(user.email);
         clone.find('.tk-first-name')
-            .html(user.firstName)
+            .html(user.firstName);
         clone.find('.tk-last-name')
-            .html(user.lastName)
+            .html(user.lastName);
         clone.find('.tk-role')
-            .html(user.role)
+            .html(user.role);
         tbody.append(clone)
     }
 }

@@ -20,6 +20,7 @@ public class User {
 	private String phone;
 	private String email;
 	private Date dateOfBirth;
+	private String resetToken;
 
 	public int getId() {
 		return id;
@@ -74,6 +75,12 @@ public class User {
 	}
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+	public String getResetToken() {
+		return resetToken;
+	}
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
 	}
 
 }

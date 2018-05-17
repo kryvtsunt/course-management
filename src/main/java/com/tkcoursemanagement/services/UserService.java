@@ -3,6 +3,7 @@ package com.tkcoursemanagement.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -151,16 +152,22 @@ public class UserService {
 	}
 
 	@PostMapping("/api/forgot")
-	public void forgotPassword(@RequestBody User user) {
-		//User u = (User) repository.findUserByEmail(user.getEmail());
+	public void forgotPassword(@RequestBody User u,HttpServletRequest request) {
+		User user = (User) repository.findUserByEmail(u.getEmail());
+		user.setResetToken(UUID.randomUUID().toString());
 		SimpleMailMessage message = new SimpleMailMessage();
+		String appUrl = request.getScheme() + "://" + request.getServerName();
+		message.setFrom("support@tk.com");
 		message.setTo(user.getEmail());
 		message.setSubject("Reset password");
 		message.setText("Follow this link to reset your password");
+		message.setSubject("Password Reset Request");
+		message.setText("To reset your password, click the link below:\n" + appUrl
+				+ "/api/reset?token=" + user.getResetToken());
 		emailSender.send(message);
 	}
 	
-	@GetMapping("/api/reset/{userId}")
+	@GetMapping("/api/reset")
 	public void resetPassword() {
 
 	}
