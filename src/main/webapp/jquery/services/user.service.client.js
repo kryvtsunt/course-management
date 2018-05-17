@@ -9,6 +9,7 @@ function UserServiceClient() {
     this.logout = logout;
     this.profile = profile;
     this.register = register;
+    this.reset = reset;
     this.forgotPassword = forgotPassword;
     this.loginUrl = 'http://localhost:8080/api/login';
     this.logoutUrl = 'http://localhost:8080/api/logout';
@@ -16,6 +17,7 @@ function UserServiceClient() {
     this.profileUrl = 'http://localhost:8080/api/profile';
     this.userUrl = 'http://localhost:8080/api/user';
     this.forgotUrl = 'http://localhost:8080/api/forgot'
+    this.resetUrl = 'http://localhost:8080/api/reset'
     var self = this;
 
     function login(username, password) {
@@ -78,7 +80,7 @@ function UserServiceClient() {
     function forgotPassword(email) {
         return fetch(self.forgotUrl, {
             method: 'post',
-            body: JSON.stringify(new User(null,null,null,null,null,null,email,null,null)),
+            body: JSON.stringify({email: email}),
             headers: {
                 'content-type': 'application/json'
             }
@@ -124,6 +126,24 @@ function UserServiceClient() {
         return fetch(self.userUrl + '/' + userId, {
             method: 'put',
             body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                if (response.status == 10) {
+                    return null;
+                }
+                else {
+                    return response.json();
+                }
+            });
+    }
+
+    function reset() {
+        return fetch(self.resetUrl + '/' + userId, {
+            method: 'put',
+            body: JSON.stringify({password: password}),
             headers: {
                 'content-type': 'application/json'
             }

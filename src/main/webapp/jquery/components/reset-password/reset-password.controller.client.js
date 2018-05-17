@@ -6,34 +6,22 @@ var password;
 //IIFE = Immediately-invoked function expression
 // Main function
 (function () {
-
-    $('#signUpBtn').click(login);
-    $('#forgot').click(forgotPassword);
+    var pathname = window.location.pathname;
+    var url      = window.location.href;
+    console.log(pathname);
+    $('#resetBtn').click(reset)
 })()
 
-function login() {
-    username = $("#username").val();
-    password = $("#inputPassword").val();
-    userService.login(username, password).then(success);
-}
+function reset() {
+    password = $("#passwordFld").val();
+    verifyPassword = $("#verifyPassword").val();
 
-function forgotPassword(){
-    console.log("asdf");
-    userService.forgotPassword().then(success2);
+    userService.reset(username, password).then(success);
 }
 
 function success(response) {
-    if (response === null) {
-        alert("Not a valid user");
-    }
-    else {
         console.log(response);
-        window.location.href = "../profile/profile.template.client.html";
-    }
-}
-
-function success2(response) {
-        console.log("Email was sent");
+        window.location.href = "../login/login.template.client.html";
 }
 
 

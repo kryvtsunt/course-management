@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mysql.fabric.Response;
@@ -152,23 +153,33 @@ public class UserService {
 	}
 
 	@PostMapping("/api/forgot")
-	public void forgotPassword(@RequestBody User u,HttpServletRequest request) {
-		User user = (User) repository.findUserByEmail(u.getEmail());
+	public void forgotPassword(@RequestBody User u, HttpServletRequest request) {
+		List<User> users = (List<User>) repository.findUserByEmail(u.getEmail());
+		User user = users.get(0);
 		user.setResetToken(UUID.randomUUID().toString());
 		SimpleMailMessage message = new SimpleMailMessage();
-		String appUrl = request.getScheme() + "://" + request.getServerName();
+	
 		message.setFrom("support@tk.com");
 		message.setTo(user.getEmail());
 		message.setSubject("Reset password");
 		message.setText("Follow this link to reset your password");
 		message.setSubject("Password Reset Request");
-		message.setText("To reset your password, click the link below:\n" + appUrl
-				+ "/api/reset?token=" + user.getResetToken());
+		message.setText("To reset your password, click the link below:\n" + 
+		"http://localhost:8080/jquery/components/reset-password/reset-password.template.client.html?token=" + user.getResetToken());
 		emailSender.send(message);
 	}
 	
-	@GetMapping("/api/reset")
-	public void resetPassword() {
-
+	@PutMapping("/api/reset")
+	public User resetPassword(@RequestParam("token") String token) {
+		List<User> users = (List<User>) repository.findUserByResetToken(token);
+		if (users.isEmpty()) {
+			return null;
+		}
+		else {
+			User user = users.get(0);
+			repository.save(user);
+			return user;
+		}
+		
 	}
 }
