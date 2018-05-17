@@ -11,13 +11,13 @@ function UserServiceClient() {
     this.register = register;
     this.reset = reset;
     this.forgotPassword = forgotPassword;
-    this.loginUrl = 'http://localhost:8080/api/login';
-    this.logoutUrl = 'http://localhost:8080/api/logout';
-    this.registerUrl = 'http://localhost:8080/api/register';
-    this.profileUrl = 'http://localhost:8080/api/profile';
-    this.userUrl = 'http://localhost:8080/api/user';
-    this.forgotUrl = 'http://localhost:8080/api/forgot'
-    this.resetUrl = 'http://localhost:8080/api/reset'
+    this.loginUrl = '/api/login';
+    this.logoutUrl = '/api/logout';
+    this.registerUrl = '/api/register';
+    this.profileUrl = '/api/profile';
+    this.userUrl = '/api/user';
+    this.forgotUrl = '/api/forgot';
+    this.resetUrl = '/api/reset';
     var self = this;
 
     function login(username, password) {

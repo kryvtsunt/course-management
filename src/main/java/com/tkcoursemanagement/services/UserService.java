@@ -183,3 +183,6 @@ public class UserService {
 		
 	}
 }
+
+
+// String appUrl = request.getScheme() + "://" + request.getServerName();
