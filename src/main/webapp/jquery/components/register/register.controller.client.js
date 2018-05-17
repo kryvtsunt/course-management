@@ -12,9 +12,9 @@ var verify;
 })()
 
 function register() {
-    username = $("#username").val();
-    password = $("#inputPassword").val();
-    verify = $("#verifyPassword").val();
+    username = $("#usernameFld").val();
+    password = $("#inputPasswordFld").val();
+    verify = $("#verifyPasswordFld").val();
     userService.register(username, password).then(success);
 }
 

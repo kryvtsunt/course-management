@@ -11,14 +11,15 @@ var password;
 })()
 
 function login() {
-    username = $("#username").val();
-    password = $("#inputPassword").val();
+    username = $("#usernameFld").val();
+    password = $("#inputPasswordFld").val();
     userService.login(username, password).then(success);
 }
 
 function success(response) {
     if (response === null) {
         alert("Not a valid user");
+        $('#error1').show();
     }
     else {
         console.log(response);

@@ -12,7 +12,7 @@ var password;
 function reset() {
     var url = window.location.href;
     var token = url.split('=')[1];
-    var password = $('#inputPassword').val();
+    var password = $('#inputPasswordFld').val();
     console.log(password);
     userService.reset(token, password).then(success);
 }

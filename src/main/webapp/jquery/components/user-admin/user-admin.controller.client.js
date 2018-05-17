@@ -18,15 +18,15 @@ var headClone;
 // Main function
 (function () {
     $form = $("#formAdmin");
-    $username = $("#tk-username-fld");
-    $password = $("#tk-password-fld");
-    $email = $("#tk-email-fld");
-    $firstName = $("#tk-first-name-fld");
-    $lastName = $("#tk-last-name-fld");
-    $role = $("#tk-role-fld");
+    $username = $("#usernameFld");
+    $password = $("#passwordFld");
+    $email = $("#emailFld");
+    $firstName = $("#firstNameFld");
+    $lastName = $("#lastNameFld");
+    $role = $("#roleFld");
 
     tbody = $('tbody');
-    template = $('#tk-template-user');
+    template = $('#templateUser');
     $('.tk-create-btn').click(createUser);
     $('.tk-update-btn').click(updateUser);
     $('.tk-refresh-btn').click(refreshForm);
@@ -34,12 +34,12 @@ var headClone;
 })();
 
 function createUser() {
-    var username = $('#tk-username-fld').val();
-    var password = $('#tk-password-fld').val();
-    var email = $('#tk-email-fld').val();
-    var firstName = $('#tk-first-name-fld').val();
-    var lastName = $('#tk-last-name-fld').val();
-    var role = $('#tk-role-fld').val();
+    var username = $('#usernameFld').val();
+    var password = $('#passwordFld').val();
+    var email = $('#emailFldfld').val();
+    var firstName = $('#firstNameFld').val();
+    var lastName = $('#lastNameFld').val();
+    var role = $('#roleFld').val();
 
     var user = new User(username, password, firstName, lastName, role, null, email);
     refreshForm();
@@ -55,12 +55,12 @@ function updateUser(event) {
         .parent()
         .attr('id');
 
-    var username = $('#tk-username-fld').val();
-    var password = $('#tk-password-fld').val();
-    var email = $('#tk-email-fld').val();
-    var firstName = $('#tk-first-name-fld').val();
-    var lastName = $('#tk-last-name-fld').val();
-    var role = $('#tk-role-fld').val();
+    var username = $('#usernameFld').val();
+    var password = $('#passwordFld').val();
+    var email = $('#emailFldfld').val();
+    var firstName = $('#firstNameFld').val();
+    var lastName = $('#lastNameFld').val();
+    var role = $('#roleFld').val();
     var user = {
         username: username,
         password: password,

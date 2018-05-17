@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link href="login.style.client.css" rel="stylesheet" />
+    <link href="login.style.client.css" rel="stylesheet"/>
     <title>SigIn</title>
 
 </head>
 <body>
 <div class="container">
     <h1>Sign In</h1>
+    <div class="container">
+        <p id="error1"> Error1 </p>
+    </div>
     <form>
         <div class="form-group row">
-            <label for="username" class="col-sm-2 col-form-label">Username</label>
+            <label for="usernameFld" class="col-sm-2 col-form-label">Username</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="username" placeholder="Username">
+                <input type="text" class="form-control" id="usernameFld" placeholder="Username">
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <label for="passwordFld" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input type="password" class="form-control" id="passwordFld" placeholder="Password">
             </div>
         </div>
         <div class="form-group row">

@@ -10,7 +10,7 @@ var password;
 })()
 
 function forgotPassword(){
-    var email = $('#email').val();
+    var email = $('#emailFld').val();
     userService.forgotPassword(email).then(success);
 }
 
