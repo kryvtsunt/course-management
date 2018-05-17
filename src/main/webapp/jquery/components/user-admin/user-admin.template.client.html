@@ -16,27 +16,27 @@
         <tr>
             <th>Username</th>
             <th>Password</th>
-            <th>Email</th>
+            <th class="tk-wide-column;">Email</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Role</th>
+            <th class="tk-wide-column">Role</th>
             <th>&nbsp;</th>
 
         </tr>
         <tr id="formAdmin">
             <td><input id="usernameFld" class="form-control" placeholder="Username"/></td>
-            <td><input id="passwordFld" class="form-control" type="password"/></td>
-            <td><input id="emailFld" class="form-control"/></td>
+            <td><input id="passwordFld" class="form-control" type="password" placeholder="Password"/></td>
+            <td><input id="emailFld" class="form-control" placeholder="Email"/></td>
             <td><input id="firstNameFld" class="form-control" placeholder="First Name"/></td>
             <td><input id="lastNameFld" class="form-control" placeholder="Last Name"/></td>
-            <td><select id="roldFld" class="form-control">
-                <option value="FACULTY">Faculty</option>
-                <option value="STUDENT">Student</option>
+            <td><select id="roleFld" class="form-control">
+                <option value="STUDENT">STUDENT</option>
+                <option value="FACULTY">FACULTY</option>
             </select></td>
             <td><span class="float-right" style="white-space: nowrap">
                 <i class="btn fa-2x fa fa-plus tk-create-btn"></i>
                 <i class="btn fa-2x fa fa-times tk-refresh-btn"></i>
-                <i class="btn fa-2x fa fa-check tk-update-btn"></i>
+                <i class="btn fa-2x fa fa-check tk-update-btn hidden"></i>
             </span></td>
         </tr>
         </thead>

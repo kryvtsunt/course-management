@@ -7,7 +7,13 @@ h1 {
     display: none;
 }
 
+.hidden {
+    visibility: hidden;;
+}
 
+.tk-wide-column {
+    width: 15%;
+}
 /*.tk-password {*/
     /*-webkit-text-security: disc;*/
 /*}*/

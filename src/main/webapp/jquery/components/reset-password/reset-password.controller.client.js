@@ -14,7 +14,7 @@ function reset() {
     var token = url.split('=')[1];
     var password = $('#inputPasswordFld').val();
     console.log(password);
-    userService.reset(token, password).then(success);
+    userService.resetPassword(token, password).then(success);
 }
 
 function success(response) {

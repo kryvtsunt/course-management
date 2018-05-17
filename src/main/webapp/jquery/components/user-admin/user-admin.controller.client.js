@@ -1,17 +1,23 @@
 var userService = new UserServiceClient();
+
 var tbody;
 var template;
-var $usernameFld, $passwordFld;
-var $removeBtn, $editBtn, $createBtn;
-var $firstNameFld, $lastNameFld;
-var $userRowTemplate, $tbody;
+
+var username;
+var email;
+var firstName;
+var lastName;
+var password;
+var role;
+var form;
 
 var $username;
+var $email;
 var $firstName;
 var $lastName;
-var password;
+var $password;
+var $role;
 var $form;
-var headClone;
 
 
 //IIFE = Immediately-invoked function expression
@@ -34,17 +40,17 @@ var headClone;
 })();
 
 function createUser() {
-    var username = $('#usernameFld').val();
-    var password = $('#passwordFld').val();
-    var email = $('#emailFldfld').val();
-    var firstName = $('#firstNameFld').val();
-    var lastName = $('#lastNameFld').val();
-    var role = $('#roleFld').val();
+    username = $username.val();
+    password = $password.val();
+    email = $email.val();
+    firstName = $firstName.val();
+    lastName = $lastName.val();
+    role = $role.val();
 
-    var user = new User(username, password, firstName, lastName, role, null, email);
-    refreshForm();
+    var user = new User(username, password, email, firstName, lastName, role, null, null);
     userService.createUser(user)
         .then(findAllUsers);
+    refreshForm();
 }
 
 function updateUser(event) {
@@ -54,21 +60,14 @@ function updateUser(event) {
         .parent()
         .parent()
         .attr('id');
+    username = $username.val();
+    password = $password.val();
+    email = $email.val();
+    firstName = $firstName.val();
+    lastName = $lastName.val();
+    role = $role.val();
 
-    var username = $('#usernameFld').val();
-    var password = $('#passwordFld').val();
-    var email = $('#emailFldfld').val();
-    var firstName = $('#firstNameFld').val();
-    var lastName = $('#lastNameFld').val();
-    var role = $('#roleFld').val();
-    var user = {
-        username: username,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        role: role,
-        email: email
-    };
+    var user = new User(username,password,email,firstName,lastName,role,null,null);
     userService.updateUser(userId,user)
         .then(findAllUsers);
     refreshForm();
@@ -79,9 +78,9 @@ function refreshForm() {
     $password.val(null);
     $firstName.val(null);
     $lastName.val(null);
-    $role.val(null);
     $email.val(null);
-    //$form.attr("id", "formAdmin");          /// maybe keep depending on implementation
+    $form.attr("id", "formAdmin");          /// maybe keep depending on implementation
+    $('.tk-update-btn').addClass("hidden");
 }
 function findAllUsers() {
     userService.findAllUsers().then(renderUsers);
@@ -112,6 +111,7 @@ function editUser(event) {
     userService
         .findUserById(userId)
         .then(renderUser);
+    $('.tk-update-btn').removeClass("hidden");
 }
 
 

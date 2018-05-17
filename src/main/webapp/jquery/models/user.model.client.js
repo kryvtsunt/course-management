@@ -1,13 +1,12 @@
-function User(username, password, firstName, lastName, role, phone, email, dateOfBirth) {
+function User(username, password, email, firstName, lastName, role, phone, dateOfBirth) {
     this.username = username;
     this.password = password;
+    this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
     this.role = role;
     this.phone = phone;
-    this.email = email;
     this.dateOfBirth = dateOfBirth;
-    this.resetToken = resetToken;
 
     this.setUsername = setUsername;
     this.getUsername = getUsername;
@@ -25,9 +24,6 @@ function User(username, password, firstName, lastName, role, phone, email, dateO
     this.getEmail = getEmail;
     this.getDateOfBirth = getDateOfBirth;
     this.setDateOfBirth = setDateOfBirth;
-    this.getResetToken = getResetToken;
-    this.setResetToken = setResetToken;
-
 
     function setUsername(username) {
         this.username = username;
@@ -76,12 +72,6 @@ function User(username, password, firstName, lastName, role, phone, email, dateO
     }
     function getDateOfBirth() {
         return this.dateOfBirth;
-    }
-    function setResetToken(resetToken) {
-        this.resetToken = resetToken;
-    }
-    function getResetToken() {
-        return this.resetToken;
     }
 
 

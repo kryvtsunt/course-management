@@ -9,7 +9,7 @@ function UserServiceClient() {
     this.logout = logout;
     this.profile = profile;
     this.register = register;
-    this.reset = reset;
+    this.resetPassword = resetPassword;
     this.forgotPassword = forgotPassword;
     this.loginUrl = '/api/login';
     this.logoutUrl = '/api/logout';
@@ -140,7 +140,7 @@ function UserServiceClient() {
             });
     }
 
-    function reset(token, password) {
+    function resetPassword(token, password) {
         return fetch(self.resetUrl, {
             method: 'put',
             body: JSON.stringify({resetToken: token, password: password}),
