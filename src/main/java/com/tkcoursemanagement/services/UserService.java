@@ -166,17 +166,22 @@ public class UserService {
 		message.setSubject("Password Reset Request");
 		message.setText("To reset your password, click the link below:\n" + appUrl
 				+ "/jquery/components/reset-password/reset-password.template.client.html?token=" + user.getResetToken());
+		repository.save(user);
 		emailSender.send(message);
 	}
 	
 	@PutMapping("/api/reset")
-	public User resetPassword(@RequestParam("token") String token) {
+	public User resetPassword(@RequestBody User u, HttpServletResponse response) {
+		String token = u.getResetToken();
+		String password = u.getPassword();
 		List<User> users = (List<User>) repository.findUserByResetToken(token);
 		if (users.isEmpty()) {
+			response.setStatus(10);
 			return null;
 		}
 		else {
 			User user = users.get(0);
+			user.setPassword(password);
 			repository.save(user);
 			return user;
 		}

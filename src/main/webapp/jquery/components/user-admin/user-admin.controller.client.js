@@ -79,8 +79,8 @@ function refreshForm() {
     $password.val(null);
     $firstName.val(null);
     $lastName.val(null);
-    $role.vall(null);
-    $email.vall(null);
+    $role.val(null);
+    $email.val(null);
     //$form.attr("id", "formAdmin");          /// maybe keep depending on implementation
 }
 function findAllUsers() {

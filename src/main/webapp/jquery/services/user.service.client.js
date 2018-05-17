@@ -140,10 +140,10 @@ function UserServiceClient() {
             });
     }
 
-    function reset() {
-        return fetch(self.resetUrl + '/' + userId, {
+    function reset(token, password) {
+        return fetch(self.resetUrl, {
             method: 'put',
-            body: JSON.stringify({password: password}),
+            body: JSON.stringify({resetToken: token, password: password}),
             headers: {
                 'content-type': 'application/json'
             }

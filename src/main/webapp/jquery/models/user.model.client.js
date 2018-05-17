@@ -7,6 +7,7 @@ function User(username, password, firstName, lastName, role, phone, email, dateO
     this.phone = phone;
     this.email = email;
     this.dateOfBirth = dateOfBirth;
+    this.resetToken = resetToken;
 
     this.setUsername = setUsername;
     this.getUsername = getUsername;
@@ -24,6 +25,8 @@ function User(username, password, firstName, lastName, role, phone, email, dateO
     this.getEmail = getEmail;
     this.getDateOfBirth = getDateOfBirth;
     this.setDateOfBirth = setDateOfBirth;
+    this.getResetToken = getResetToken;
+    this.setResetToken = setResetToken;
 
 
     function setUsername(username) {
@@ -73,6 +76,12 @@ function User(username, password, firstName, lastName, role, phone, email, dateO
     }
     function getDateOfBirth() {
         return this.dateOfBirth;
+    }
+    function setResetToken(resetToken) {
+        this.resetToken = resetToken;
+    }
+    function getResetToken() {
+        return this.resetToken;
     }
 
 

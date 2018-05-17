@@ -6,26 +6,26 @@ var password;
 //IIFE = Immediately-invoked function expression
 // Main function
 (function () {
-    var pathname = window.location.pathname;
-    var url      = window.location.href;
-    console.log(pathname);
     $('#resetBtn').click(reset)
 })()
 
 function reset() {
-    password = $("#passwordFld").val();
-    verifyPassword = $("#verifyPassword").val();
-
-    userService.reset(username, password).then(success);
+    var url = window.location.href;
+    var token = url.split('=')[1];
+    var password = $('#inputPassword').val();
+    console.log(password);
+    userService.reset(token, password).then(success);
 }
 
 function success(response) {
-        console.log(response);
+    if (response === null) {
+        alert("User not found");
+    }
+    else {
+        alert("Success");
         window.location.href = "../login/login.template.client.html";
+    }
 }
-
-
-
 
 
 
