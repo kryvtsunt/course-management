@@ -1,9 +1,49 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    text-align:center;
+}
+
 h1 {
-    text-align: center;
     font-weight: bold;
 }
 
-#tk-template-user{
+.tk-table {
+    background: white;
+    text-align: center;
+    padding: 0px;
+    display: block;
+}
+
+.card-head {
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    background: steelblue;
+}
+
+.tk-table-head {
+    background: lightsteelblue;
+}
+
+.card {
+    padding: 15px 0px;
+    background: white;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    padding-top: 0px;
+    border-radius: 10px;
+    text-align: center;
+    border: 5px solid steelblue;
+    min-width: 800px;
+}
+
+.error {
+    color: firebrick;
+    font-weight: bold;
+    display: none;
+}
+
+#templateUser {
     display: none;
 }
 
@@ -14,6 +54,30 @@ h1 {
 .tk-wide-column {
     width: 15%;
 }
+
+.tk-delete-btn, .tk-refresh-btn {
+    color: firebrick;
+}
+
+.tk-edit-btn {
+    color: orange;
+}
+
+.tk-create-btn {
+    color: steelblue;
+}
+
+.tk-update-btn {
+    color: green;
+}
+.tk-icon {
+    text-align:center;
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
 /*.tk-password {*/
-    /*-webkit-text-security: disc;*/
+/*-webkit-text-security: disc;*/
 /*}*/
