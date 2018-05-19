@@ -79,8 +79,9 @@ function refreshForm() {
     $firstName.val(null);
     $lastName.val(null);
     $email.val(null);
+    $role.val(null);
     $form.attr("id", "formAdmin");          /// maybe keep depending on implementation
-    $('.tk-update-btn').addClass("hidden");
+    $('.tk-update-btn').addClass("tk-hidden");
 }
 function findAllUsers() {
     userService.findAllUsers().then(renderUsers);
