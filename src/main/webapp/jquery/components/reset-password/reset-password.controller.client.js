@@ -36,7 +36,7 @@ function success(response) {
         alert("User not found");
     }
     else {
-        alert("Email was sent ");
+        alert("Password successfully changed ");
         window.location.href = "../login/login.template.client.html";
     }
 }
