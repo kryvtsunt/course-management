@@ -1,6 +1,6 @@
 var userService = new UserServiceClient();
 var username;
-var password;
+
 
 
 //IIFE = Immediately-invoked function expression
@@ -10,11 +10,25 @@ var password;
 })()
 
 function reset() {
-    var url = window.location.href;
-    var token = url.split('=')[1];
-    var password = $('#inputPasswordFld').val();
-    console.log(password);
-    userService.resetPassword(token, password).then(success);
+    $('#error1').hide();
+    $('#error2').hide();
+    $('#error3').hide();
+    var password = $("#inputPasswordFld").val();
+    var verify = $("#verifyPasswordFld").val();
+    if (password == "") {
+        $('#error1').show();
+    }
+    else if (verify == "") {
+        $('#error2').show();
+    }
+    else if (password !== verify) {
+        $('#error3').show();
+    }
+    else {
+        var url = window.location.href;
+        var token = url.split('=')[1];
+        userService.resetPassword(token, password).then(success);
+    }
 }
 
 function success(response) {
@@ -22,7 +36,7 @@ function success(response) {
         alert("User not found");
     }
     else {
-        alert("Success");
+        alert("Email was sent ");
         window.location.href = "../login/login.template.client.html";
     }
 }

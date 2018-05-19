@@ -9,9 +9,16 @@
 
 </head>
 <body>
-<div class="container card">
+<div class="container tk-card">
     <div class="tk-card-head">
         <h1>Sign Up</h1>
+    </div>
+    <div>
+        <p id="error1" class="tk-error"> Username field is empty !</p>
+        <p id="error2" class="tk-error"> Password field is empty !</p>
+        <p id="error3" class="tk-error"> Password Verification field is empty !</p>
+        <p id="error4" class="tk-error"> Passwords do not match !</p>
+        <p id="error5" class="tk-error"> Username is already taken !</p>
     </div>
     <form>
         <div class="form-group row">
@@ -37,7 +44,7 @@
             <div class="col-sm-10">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" id="verifyPasswordFld" placeholder="Verify Password">
+                    <input type="password" class="form-control" id="verifyPasswordFld" placeholder="Verify Password">
                 </div>
             </div>
         </div>

@@ -25,12 +25,9 @@ import com.mysql.fabric.Response;
 import com.tkcoursemanagement.models.User;
 import com.tkcoursemanagement.repositories.UserRepository;
 
-
-
 @RestController
 public class UserService {
 
-	
 	@Autowired
 	public JavaMailSender emailSender;
 
@@ -100,30 +97,37 @@ public class UserService {
 
 	}
 
-//	@GetMapping("/api/session/set/{attr}/{value}")
-//	public String setSessionAttribute(@PathVariable("attr") String attr, @PathVariable("value") String value,
-//			HttpSession session) {
-//		session.setAttribute(attr, value);
-//		return attr + " = " + value;
-//	}
-//
-//	@GetMapping("/api/session/get/{attr}")
-//	public String getSessionAttribute(@PathVariable("attr") String attr, HttpSession session) {
-//		return (String) session.getAttribute(attr);
-//	}
-//
-//	@GetMapping("/api/session/invalidate")
-//	public String invalidateSession(HttpSession session) {
-//		session.invalidate();
-//		return "session invalidated";
-//	}
+	@GetMapping("/api/session/set/{attr}/{value}")
+	public String setSessionAttribute(@PathVariable("attr") String attr, @PathVariable("value") String value,
+			HttpSession session) {
+		session.setAttribute(attr, value);
+		return attr + " = " + value;
+	}
+
+	@GetMapping("/api/session/get/{attr}")
+	public String getSessionAttribute(@PathVariable("attr") String attr, HttpSession session) {
+		return (String) session.getAttribute(attr);
+	}
+
+	@GetMapping("/api/session/invalidate")
+	public String invalidateSession(HttpSession session) {
+		session.invalidate();
+		return "session invalidated";
+	}
 
 	@PostMapping("/api/register")
-	public User register(@RequestBody User user, HttpServletRequest request) {
-		session = request.getSession();
-		session.setAttribute("currentUser", user);
-		repository.save(user);
-		return user;
+	public User register(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
+		List<User> users = (List<User>) repository.findUserByUsername(user.getUsername());
+		if (users.isEmpty()) {
+			session = request.getSession();
+			session.setAttribute("currentUser", user);
+			repository.save(user);
+			return user;
+		} else {
+			response.setStatus(10);
+			return null;
+		}
+
 	}
 
 	@GetMapping("/api/profile")
@@ -153,23 +157,30 @@ public class UserService {
 	}
 
 	@PostMapping("/api/forgot")
-	public void forgotPassword(@RequestBody User u, HttpServletRequest request) {
+	public User forgotPassword(@RequestBody User u, HttpServletRequest request, HttpServletResponse response) {
 		List<User> users = (List<User>) repository.findUserByEmail(u.getEmail());
-		User user = users.get(0);
-		user.setResetToken(UUID.randomUUID().toString());
-		SimpleMailMessage message = new SimpleMailMessage();
-		String appUrl = request.getScheme() + "://" + request.getServerName() +":"+ request.getServerPort();
-		message.setFrom("support@tk.com");
-		message.setTo(user.getEmail());
-		message.setSubject("Reset password");
-		message.setText("Follow this link to reset your password");
-		message.setSubject("Password Reset Request");
-		message.setText("To reset your password, click the link below:\n" + appUrl
-				+ "/jquery/components/reset-password/reset-password.template.client.html?token=" + user.getResetToken());
-		repository.save(user);
-		emailSender.send(message);
+		if (users.isEmpty()) {
+			response.setStatus(10);
+			return null;
+		} else {
+			User user = users.get(0);
+			user.setResetToken(UUID.randomUUID().toString());
+			SimpleMailMessage message = new SimpleMailMessage();
+			String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+			message.setFrom("support@tk.com");
+			message.setTo(user.getEmail());
+			message.setSubject("Reset password");
+			message.setText("Follow this link to reset your password");
+			message.setSubject("Password Reset Request");
+			message.setText("To reset your password, click the link below:\n" + appUrl
+					+ "/jquery/components/reset-password/reset-password.template.client.html?token="
+					+ user.getResetToken());
+			repository.save(user);
+			emailSender.send(message);
+			return user;
+		}
 	}
-	
+
 	@PutMapping("/api/reset")
 	public User resetPassword(@RequestBody User u, HttpServletResponse response) {
 		String token = u.getResetToken();
@@ -178,14 +189,13 @@ public class UserService {
 		if (users.isEmpty()) {
 			response.setStatus(10);
 			return null;
-		}
-		else {
+		} else {
 			User user = users.get(0);
 			user.setResetToken(null);
 			user.setPassword(password);
 			repository.save(user);
 			return user;
 		}
-		
+
 	}
 }

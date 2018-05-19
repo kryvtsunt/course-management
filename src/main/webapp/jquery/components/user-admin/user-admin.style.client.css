@@ -25,7 +25,7 @@ h1 {
     background: lightsteelblue;
 }
 
-.card {
+.tk-card {
     padding: 15px 0px;
     background: white;
     margin: 0 auto 25px;
@@ -37,7 +37,7 @@ h1 {
     min-width: 800px;
 }
 
-.error {
+.tk-error {
     color: firebrick;
     font-weight: bold;
     display: none;
@@ -47,7 +47,7 @@ h1 {
     display: none;
 }
 
-.hidden {
+.tk-hidden {
     visibility: hidden;;
 }
 
@@ -78,6 +78,6 @@ h1 {
     text-align: center;
 }
 
-/*.tk-password {*/
-/*-webkit-text-security: disc;*/
-/*}*/
+.tk-password {
+-webkit-text-security: disc;
+}

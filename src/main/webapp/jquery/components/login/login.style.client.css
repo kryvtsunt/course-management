@@ -1,6 +1,6 @@
 body {
     background:url(https://i.imgur.com/iWBk7rH.jpg);
-    background-repeat: repeat-y;
+    background-repeat: no-repeat;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
 }
@@ -18,14 +18,14 @@ form {
     display: block;
 }
 
-.card-head {
+.tk-card-head {
     color: white;
     margin: 0px;
     padding: 3px 0px;
     background: steelblue;
 }
 
-.card {
+.tk-card {
     max-width: 700px;
     padding: 15px 0px;
     background: lightsteelblue;
@@ -37,12 +37,13 @@ form {
     border: 5px solid steelblue;
 }
 
-.error {
+.tk-error {
     color: firebrick;
     font-weight: bold;
     display: none;
     background: lightpink;
     padding: 0px;
     margin: 5px;
+    border: 2px solid firebrick;
 }
 

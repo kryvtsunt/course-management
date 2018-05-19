@@ -12,18 +12,36 @@ var verify;
 })()
 
 function register() {
+    $('#error1').hide();
+    $('#error2').hide();
+    $('#error3').hide();
+    $('#error4').hide();
+    $('#error5').hide();
     username = $("#usernameFld").val();
     password = $("#inputPasswordFld").val();
     verify = $("#verifyPasswordFld").val();
-    userService.register(username, password).then(success);
+    if (username == "") {
+        $('#error1').show();
+    }
+    else if (password == "") {
+        $('#error2').show();
+    }
+    else if (verify == "") {
+        $('#error3').show();
+    }
+    else if (password !== verify) {
+        $('#error4').show();
+    }
+    else {
+        userService.register(username, password).then(success);
+    }
 }
 
 function success(response) {
     if (response === null) {
-        alert("Not a valid user");
+        $('#error5').show();
     }
     else {
-        console.log(response);
         window.location.href = "../profile/profile.template.client.html";
     }
 }

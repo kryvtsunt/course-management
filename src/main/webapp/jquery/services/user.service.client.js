@@ -84,7 +84,15 @@ function UserServiceClient() {
             headers: {
                 'content-type': 'application/json'
             }
-        });
+        })
+            .then(function (response) {
+                if (response.status == 10) {
+                    return null;
+                }
+                else {
+                    return response.json();
+                }
+            });
     }
 
     function findUserById(userId) {

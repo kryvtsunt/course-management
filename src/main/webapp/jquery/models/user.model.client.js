@@ -24,54 +24,55 @@ function User(username, password, email, firstName, lastName, role, phone, dateO
     this.getEmail = getEmail;
     this.getDateOfBirth = getDateOfBirth;
     this.setDateOfBirth = setDateOfBirth;
+    var self = this;
 
     function setUsername(username) {
-        this.username = username;
+        self.username = username;
     }
     function getUsername() {
-        return this.username;
+        return self.username;
     }
     function setPassword(password) {
-        this.password = password;
+        self.password = password;
     }
     function getPassword() {
-        return this.password;
+        return self.password;
     }
     function setFirstName(firstName) {
-        this.firstName = firstName;
+        self.firstName = firstName;
     }
     function getFirstName() {
-        return this.firstName;
+        return self.firstName;
     }
     function setLastName(lastName) {
-        this.lastName = lastName;
+        self.lastName = lastName;
     }
     function getLastName() {
-        return this.lastName;
+        return self.lastName;
     }
     function setPhone(phone) {
-        this.phone = phone;
+        self.phone = phone;
     }
     function getPhone() {
-        return this.phone;
+        return self.phone;
     }
     function setEmail(email) {
-        this.email = email;
+        self.email = email;
     }
     function getEmail() {
-        return this.email;
+        return self.email;
     }
     function setRole(role) {
-        this.role = role;
+        self.role = role;
     }
     function getRole() {
-        return this.role;
+        return self.role;
     }
     function setDateOfBirth(dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        self.dateOfBirth = dateOfBirth;
     }
     function getDateOfBirth() {
-        return this.dateOfBirth;
+        return self.dateOfBirth;
     }
 
 

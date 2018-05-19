@@ -1,28 +1,34 @@
-var userService = new UserServiceClient();
 var username;
 var password;
 
-
+var userService = new UserServiceClient();
 //IIFE = Immediately-invoked function expression
 // Main function
 (function () {
-
     $('#signUpBtn').click(login);
 })()
 
 function login() {
+    $('#error1').hide();
+    $('#error2').hide();
+    $('#error3').hide();
     username = $("#usernameFld").val();
-    password = $("#inputPasswordFld").val();
-    userService.login(username, password).then(success);
+    password = $("#passwordFld").val();
+    if (username == "") {
+        $('#error1').show();
+    }
+    else if (password == "") {
+        $('#error2').show();
+    } else {
+        userService.login(username, password).then(success);
+    }
 }
 
 function success(response) {
     if (response === null) {
-        alert("Not a valid user");
-        $('#error1').show();
+        $('#error3').show();
     }
     else {
-        console.log(response);
         window.location.href = "../profile/profile.template.client.html";
     }
 }
