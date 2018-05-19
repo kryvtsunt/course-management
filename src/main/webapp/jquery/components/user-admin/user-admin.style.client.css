@@ -11,17 +11,20 @@ h1 {
     background: white;
     text-align: center;
     padding: 0px;
+    margin: 0px;
     display: block;
 }
 
-.card-head {
+.tk-card-head {
     color: white;
     margin: 0px;
-    padding: 0px;
+    padding: 1px;
     background: steelblue;
 }
 
 .tk-table-head {
+    margin: 0px;
+    padding: 0px;
     background: lightsteelblue;
 }
 
@@ -37,18 +40,12 @@ h1 {
     min-width: 800px;
 }
 
-.tk-error {
-    color: firebrick;
-    font-weight: bold;
-    display: none;
-}
-
 #templateUser {
     display: none;
 }
 
 .tk-hidden {
-    visibility: hidden;;
+    visibility: hidden;
 }
 
 .tk-wide-column {
@@ -79,5 +76,5 @@ h1 {
 }
 
 .tk-password {
--webkit-text-security: disc;
+    -webkit-text-security: disc;
 }

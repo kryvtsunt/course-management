@@ -111,7 +111,7 @@ function editUser(event) {
     userService
         .findUserById(userId)
         .then(renderUser);
-    $('.tk-update-btn').removeClass("hidden");
+    $('.tk-update-btn').removeClass("tk-hidden");
 }
 
 

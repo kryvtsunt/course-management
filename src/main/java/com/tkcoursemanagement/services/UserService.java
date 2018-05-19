@@ -82,8 +82,12 @@ public class UserService {
 	}
 
 	@PutMapping("/api/user/{userId}")
-	public User updateUser(@RequestBody User newUser, @PathVariable("userId") int id) {
+	public User updateUser(@RequestBody User newUser, @PathVariable("userId") int id,  HttpServletResponse response) {
 		User user = repository.findById(id).get();
+		if (user.equals(null)) {
+			response.setStatus(10);
+			return null;
+		}
 		user.setFirstName(newUser.getFirstName());
 		user.setLastName(newUser.getLastName());
 		user.setUsername(newUser.getUsername());
@@ -97,23 +101,23 @@ public class UserService {
 
 	}
 
-	@GetMapping("/api/session/set/{attr}/{value}")
-	public String setSessionAttribute(@PathVariable("attr") String attr, @PathVariable("value") String value,
-			HttpSession session) {
-		session.setAttribute(attr, value);
-		return attr + " = " + value;
-	}
-
-	@GetMapping("/api/session/get/{attr}")
-	public String getSessionAttribute(@PathVariable("attr") String attr, HttpSession session) {
-		return (String) session.getAttribute(attr);
-	}
-
-	@GetMapping("/api/session/invalidate")
-	public String invalidateSession(HttpSession session) {
-		session.invalidate();
-		return "session invalidated";
-	}
+//	@GetMapping("/api/session/set/{attr}/{value}")
+//	public String setSessionAttribute(@PathVariable("attr") String attr, @PathVariable("value") String value,
+//			HttpSession session) {
+//		session.setAttribute(attr, value);
+//		return attr + " = " + value;
+//	}
+//
+//	@GetMapping("/api/session/get/{attr}")
+//	public String getSessionAttribute(@PathVariable("attr") String attr, HttpSession session) {
+//		return (String) session.getAttribute(attr);
+//	}
+//
+//	@GetMapping("/api/session/invalidate")
+//	public String invalidateSession(HttpSession session) {
+//		session.invalidate();
+//		return "session invalidated";
+//	}
 
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
