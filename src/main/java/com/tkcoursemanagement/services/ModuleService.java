@@ -52,11 +52,10 @@ public class ModuleService {
 		return null;
 	}
 	
-	@DeleteMapping("/api/course/{courseId}/module/{moduleId}")
+	@DeleteMapping("/api/module/{moduleId}")
 	public void deleteModule(
-			@PathVariable("courseId") int courseId,
 			@PathVariable("moduleId") int moduleId) {
-		Optional<Course> data = courseRepository.findById(courseId);
+		Optional<Module> data = moduleRepository.findById(moduleId);
 		if(data.isPresent()) {
 			moduleRepository.deleteById(moduleId);
 		}
