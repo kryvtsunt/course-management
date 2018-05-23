@@ -60,6 +60,5 @@ public class ModuleService {
 			moduleRepository.deleteById(moduleId);
 		}
 	}
-	
 
 }
