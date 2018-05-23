@@ -60,5 +60,17 @@ public class ModuleService {
 			moduleRepository.deleteById(moduleId);
 		}
 	}
+	
+	@GetMapping("/api/module/{moduleId}")
+	public Module findModuleByID(
+			@PathVariable("moduleId") int moduleId) {
+		Optional<Module> data = moduleRepository.findById(moduleId); 
+		if (data.isPresent()) {
+			return data.get();
+		}
+		else {
+			return null;
+		}
+	}
 
 }
