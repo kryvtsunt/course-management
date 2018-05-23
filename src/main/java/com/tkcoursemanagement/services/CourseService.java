@@ -1,5 +1,7 @@
 package com.tkcoursemanagement.services;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ public class CourseService {
 	@PostMapping("/api/course")
 	public Course createCourse
 	(@RequestBody Course course) {
+		Date date = new Date(Calendar.getInstance().getTimeInMillis());
+		course.setModified(date);
+		course.setCreated(date);
 			return courseRepository.save(course);
 	}
 	

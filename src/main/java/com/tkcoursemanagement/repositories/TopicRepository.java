@@ -1,5 +1,10 @@
 package com.tkcoursemanagement.repositories;
 
-public interface TopicRepository {
+import org.springframework.data.repository.CrudRepository;
 
-}
+import com.tkcoursemanagement.models.Topic;
+
+
+public interface TopicRepository
+extends CrudRepository<Topic, Integer>{}
+

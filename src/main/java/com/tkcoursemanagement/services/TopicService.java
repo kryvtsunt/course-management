@@ -29,7 +29,7 @@ public class TopicService {
 	@Autowired
 	LessonRepository lessonRepository;
 
-	@GetMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lesonId}/topic")
+	@GetMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}/topic")
 	public List<Topic> findAllTopics(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId,
 			@PathVariable("lessonId") int lessonId) {
 		Optional<Lesson> data = lessonRepository.findById(lessonId);
@@ -42,8 +42,7 @@ public class TopicService {
 
 	@PostMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}/topic")
 	public Topic createLesson(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId,
-			@PathVariable("lessonId") int lessonId,
-			@RequestBody Topic newTopic) {
+			@PathVariable("lessonId") int lessonId, @RequestBody Topic newTopic) {
 		Optional<Lesson> data = lessonRepository.findById(lessonId);
 		if (data.isPresent()) {
 			Lesson lesson = data.get();
