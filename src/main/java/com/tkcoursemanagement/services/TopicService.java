@@ -51,4 +51,16 @@ public class TopicService {
 		}
 		return null;
 	}
+	
+	@DeleteMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}/topic/{topicId}")
+	public void deleteTopic(
+			@PathVariable("courseId") int courseId,
+			@PathVariable("moduleId") int moduleId,
+			@PathVariable("lessonId") int lessonId,
+			@PathVariable("topicId") int topicId) {
+		Optional<Topic> data = topicRepository.findById(topicId);
+		if(data.isPresent()) {
+			topicRepository.deleteById(topicId);
+		}
+	}
 }

@@ -50,4 +50,15 @@ public class LessonService {
 		}
 		return null;
 	}
+	
+	@DeleteMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}")
+	public void deleteLesson(
+			@PathVariable("courseId") int courseId,
+			@PathVariable("moduleId") int moduleId,
+			@PathVariable("lessonId") int lessonId) {
+		Optional<Lesson> data = lessonRepository.findById(lessonId);
+		if(data.isPresent()) {
+			lessonRepository.deleteById(lessonId);
+		}
+	}
 }
