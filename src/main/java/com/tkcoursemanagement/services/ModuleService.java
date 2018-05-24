@@ -39,6 +39,12 @@ public class ModuleService {
 		}
 		return null;		
 	}
+	
+	@GetMapping("/api/module")
+	public List<Module> findAllModules() {
+		List<Module> data = (List<Module>) moduleRepository.findAll();
+		return data;	
+	}
 
 	
 	@PostMapping("/api/course/{courseId}/module")
