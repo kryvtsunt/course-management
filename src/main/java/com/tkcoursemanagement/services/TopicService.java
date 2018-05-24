@@ -1,5 +1,7 @@
 package com.tkcoursemanagement.services;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,8 @@ public class TopicService {
 	TopicRepository topicRepository;
 	@Autowired
 	LessonRepository lessonRepository;
+	@Autowired
+	CourseRepository courseRepository;
 
 	@GetMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}/topic")
 	public List<Topic> findAllTopics(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId,
@@ -41,10 +45,16 @@ public class TopicService {
 	}
 
 	@PostMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}/topic")
-	public Topic createLesson(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId,
+	public Topic createTopic(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId,
 			@PathVariable("lessonId") int lessonId, @RequestBody Topic newTopic) {
 		Optional<Lesson> data = lessonRepository.findById(lessonId);
 		if (data.isPresent()) {
+			Optional<Course> dat = courseRepository.findById(courseId);
+			if (dat.isPresent()) {
+				Course course = dat.get();
+				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				course.setModified(date);
+			}
 			Lesson lesson = data.get();
 			newTopic.setLesson(lesson);
 			return topicRepository.save(newTopic);
@@ -60,6 +70,12 @@ public class TopicService {
 			@PathVariable("topicId") int topicId) {
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if(data.isPresent()) {
+			Optional<Course> dat = courseRepository.findById(courseId);
+			if (dat.isPresent()) {
+				Course course = dat.get();
+				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				course.setModified(date);
+			}
 			topicRepository.deleteById(topicId);
 		}
 	}

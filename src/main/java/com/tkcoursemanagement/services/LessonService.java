@@ -1,5 +1,7 @@
 package com.tkcoursemanagement.services;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +46,12 @@ public class LessonService {
 			@RequestBody Lesson newLesson) {
 		Optional<Module> data = moduleRepository.findById(moduleId);
 		if (data.isPresent()) {
+			Optional<Course> dat = courseRepository.findById(courseId);
+			if (dat.isPresent()) {
+				Course course = dat.get();
+				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				course.setModified(date);
+			}
 			Module module = data.get();
 			newLesson.setModule(module);
 			return lessonRepository.save(newLesson);
@@ -58,6 +66,12 @@ public class LessonService {
 			@PathVariable("lessonId") int lessonId) {
 		Optional<Lesson> data = lessonRepository.findById(lessonId);
 		if(data.isPresent()) {
+			Optional<Course> dat = courseRepository.findById(courseId);
+			if (dat.isPresent()) {
+				Course course = dat.get();
+				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				course.setModified(date);
+			}
 			lessonRepository.deleteById(lessonId);
 		}
 	}
