@@ -52,7 +52,7 @@ public class TopicService {
 			Optional<Course> dat = courseRepository.findById(courseId);
 			if (dat.isPresent()) {
 				Course course = dat.get();
-				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				Date date = new Date(System.currentTimeMillis());
 				course.setModified(date);
 			}
 			Lesson lesson = data.get();
@@ -73,7 +73,7 @@ public class TopicService {
 			Optional<Course> dat = courseRepository.findById(courseId);
 			if (dat.isPresent()) {
 				Course course = dat.get();
-				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				Date date = new Date(System.currentTimeMillis());
 				course.setModified(date);
 			}
 			topicRepository.deleteById(topicId);

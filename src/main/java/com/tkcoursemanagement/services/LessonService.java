@@ -49,7 +49,7 @@ public class LessonService {
 			Optional<Course> dat = courseRepository.findById(courseId);
 			if (dat.isPresent()) {
 				Course course = dat.get();
-				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				Date date = new Date(System.currentTimeMillis());
 				course.setModified(date);
 			}
 			Module module = data.get();
@@ -69,7 +69,7 @@ public class LessonService {
 			Optional<Course> dat = courseRepository.findById(courseId);
 			if (dat.isPresent()) {
 				Course course = dat.get();
-				Date date = new Date(Calendar.getInstance().getTimeInMillis());
+				Date date = new Date(System.currentTimeMillis());
 				course.setModified(date);
 			}
 			lessonRepository.deleteById(lessonId);

@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tkcoursemanagement.models.Course;
 import com.tkcoursemanagement.models.Module;
 import com.tkcoursemanagement.repositories.CourseRepository;
+import com.tkcoursemanagement.repositories.ModuleRepository;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CourseService {
 	@Autowired
 	CourseRepository courseRepository;	
+	@Autowired
+	ModuleRepository moduleRepository;
 	
 	@GetMapping("/api/course")
 	public Iterable<Course> findAllCourses() {
@@ -43,7 +46,7 @@ public class CourseService {
 	@PostMapping("/api/course")
 	public Course createCourse
 	(@RequestBody Course course) {
-		Date date = new Date(Calendar.getInstance().getTimeInMillis());
+		Date date = new Date(System.currentTimeMillis());
 		course.setModified(date);
 		course.setCreated(date);
 			return courseRepository.save(course);
