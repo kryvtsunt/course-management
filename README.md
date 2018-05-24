@@ -11,7 +11,7 @@ The following features are implemented in this assignment:
 _All bonus tasks are successfully implemented_
 # Course Management Application
 ## Features
-The following features are implemented in this assignment:
+The following features are implemented in this assignment :
 * User admin allows admin users to create, find, update and delete users
 * Registration allows anyone to register as a user
 * Login allows anyone to login
