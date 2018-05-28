@@ -21,12 +21,12 @@ public class WidgetService {
 	
 	@GetMapping ("/api/widget")
 	public List<Widget> findAllWidgets() {
-		return (List<Widget>) widgetRepository.findAll();
-		
+		return (List<Widget>) widgetRepository.findAll();	
 	}
 	
 	@PostMapping("/api/widget/save")
-	public List<Widget> saveWidgets(List<Widget> widgets) {
+	public List<Widget> saveWidgets(@RequestBody List<Widget> widgets) {
+		widgetRepository.deleteAll();
 		return (List<Widget>) widgetRepository.saveAll(widgets);
 		
 	}
