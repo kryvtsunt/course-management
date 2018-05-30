@@ -42,7 +42,7 @@ public class WidgetService {
 			Widget widget = data.get();
 			return widget;
 		}
-		retunr null;
+		return null;
 	}
 	
 	@GetMapping("/api/topic/{topicId}/widget")
