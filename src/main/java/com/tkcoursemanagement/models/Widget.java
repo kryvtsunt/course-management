@@ -20,9 +20,7 @@ public class Widget {
 	private String style;
 	private String width;
 	private String height;
-
 	private String widgetType;
-	
 	private int size;
 	private String href;
 	private String src;

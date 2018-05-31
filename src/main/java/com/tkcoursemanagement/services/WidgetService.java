@@ -55,6 +55,16 @@ public class WidgetService {
 		return null;
 	}
 	
+	@GetMapping("/api/topic/{topicId}/widget")
+	public List<Widget> findWidgetByName(@PathVariable("topicId") int topicId) {
+		Optional<Topic> data = topicRepository.findById(topicId);
+		if (data.isPresent()) {
+			Topic topic = data.get();
+			return topic.getWidgets();
+		}
+		return null;
+	}
+	
 	
 	@PostMapping("/api/widget")
 	public List<Widget> saveWidgets(@RequestBody List<Widget> widgets) {
@@ -98,4 +108,6 @@ public class WidgetService {
 			widgetRepository.deleteById(widgetId);
 		}
 	}
+	
+	
 }
