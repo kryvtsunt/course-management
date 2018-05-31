@@ -10,4 +10,5 @@ The following features are implemented in this assignment :
 * Errors (from the server side) that are displayed in a (client) user interface
 
 _All bonus tasks are successfully implemented_
+
 Middle tier URL: https://github.com/kryvtsunt/course-management-react
