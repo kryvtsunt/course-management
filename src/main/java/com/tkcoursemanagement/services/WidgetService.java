@@ -1,6 +1,5 @@
 package com.tkcoursemanagement.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tkcoursemanagement.models.Lesson;
 import com.tkcoursemanagement.models.Topic;
 import com.tkcoursemanagement.models.Widget;
 import com.tkcoursemanagement.repositories.TopicRepository;
@@ -47,16 +45,6 @@ public class WidgetService {
 	
 	@GetMapping("/api/topic/{topicId}/widget")
 	public List<Widget> findAllWidgetsForTopic(@PathVariable("topicId") int topicId) {
-		Optional<Topic> data = topicRepository.findById(topicId);
-		if (data.isPresent()) {
-			Topic topic = data.get();
-			return topic.getWidgets();
-		}
-		return null;
-	}
-	
-	@GetMapping("/api/topic/{topicId}/widget")
-	public List<Widget> findWidgetByName(@PathVariable("topicId") int topicId) {
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if (data.isPresent()) {
 			Topic topic = data.get();
