@@ -120,16 +120,7 @@ public class WidgetService {
 		}
 	}
 	
-//	@PostMapping("/api/topic/{topicId}/widget")
-//	public Widget createWidget(@PathVariable("topicId") int topicId, @RequestBody Widget widget) {
-//		Optional<Topic> data = topicRepository.findById(topicId);
-//		if (data.isPresent()) {
-//			Topic topic = data.get();
-//			widget.setTopic(topic);
-//			return widgetRepository.save(widget);
-//		}
-//		else return null;
-//	}
+
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.tkcoursemanagement.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,11 +50,17 @@ public class AssignmentService {
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if (data.isPresent()) {
 			Topic topic = data.get();
-			return topic.getWidgets();
+			List<Widget> widgets = topic.getWidgets();
+			List<Widget> assignments = new ArrayList<Widget>();
+			for (Widget w : widgets) {
+				if ((w != null) && (w.getWidgetType() != null) && (w.getWidgetType().equals("Assignment"))) {
+					assignments.add(w);
+				}
+			}
+			return assignments;
 		}
 		return null;
 	}
-	
 	
 	@PostMapping("/api/topic/{topicId}/assignment")
 	public Assignment createAssignment(@PathVariable("topicId") int topicId, @RequestBody Assignment assignment) {
@@ -61,18 +68,19 @@ public class AssignmentService {
 		if (data.isPresent()) {
 			Topic topic = data.get();
 			assignment.setTopic(topic);
+			assignment.setWidgetType("Assignment");
 			return assignmentRepository.save(assignment);
 		}
 		else return null;
 	}
 	
-//	@DeleteMapping("/api/exam/{examId}")
-//	public void deleteExam(@PathVariable("examId") int examId) {
-//		Optional<Exam> data = examRepository.findById(examId);
-//		if (data.isPresent()) {
-//			examRepository.deleteById(examId);
-//		}
-//	}
+	@DeleteMapping("/api/assignment/{assignmentId}")
+	public void deleteAssignment(@PathVariable("assignmentId") int assignmentId) {
+		Optional<Assignment> data = assignmentRepository.findById(assignmentId);
+		if (data.isPresent()) {
+			assignmentRepository.deleteById(assignmentId);
+		}
+	}
 	
 	
 }

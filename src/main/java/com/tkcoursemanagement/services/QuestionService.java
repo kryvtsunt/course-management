@@ -31,11 +31,11 @@ public class QuestionService {
 	@Autowired
 	TrueFalseQuestionRepository trueFalseRepository;
 	@Autowired
-	MultipleChoiceQuestionRepository mutiRepo;
+	MultipleChoiceQuestionRepository multipleRepository;
 
 	@GetMapping("/api/multi/{questionId}")
 	public MultipleChoiceQuestion findMultiQuestionById(@PathVariable("questionId") int questionId) {
-		Optional<MultipleChoiceQuestion> optional = mutiRepo.findById(questionId);
+		Optional<MultipleChoiceQuestion> optional = multipleRepository.findById(questionId);
 		if(optional.isPresent()) {
 			return optional.get();
 		}
@@ -57,9 +57,33 @@ public class QuestionService {
 		if(optionalExam.isPresent()) {
 			Exam exam = optionalExam.get();
 			List<Question> questions = exam.getQuestions();
-			int count = questions.size();
 			return questions;
 		}
-		return null;
+		else return null;
+	}
+	
+	
+	@PostMapping("/api/exam/{examId}/questionTF")
+	public TrueFalseQuestion  createTrueFalse(@PathVariable("examId") int examId, @RequestBody TrueFalseQuestion q) {
+		Optional<Exam> optionalExam = examRepository.findById(examId);
+		if(optionalExam.isPresent()) {
+			Exam exam = optionalExam.get();
+			q.setExam(exam);
+			q.setType("TF");
+			return trueFalseRepository.save(q);
+		}
+		else return null;
+	}
+	
+	@PostMapping("/api/exam/{examId}/questionMC")
+	public MultipleChoiceQuestion  createMultiple(@PathVariable("examId") int examId, @RequestBody MultipleChoiceQuestion q) {
+		Optional<Exam> optionalExam = examRepository.findById(examId);
+		if(optionalExam.isPresent()) {
+			Exam exam = optionalExam.get();
+			q.setExam(exam);
+			q.setType("MC");
+			return multipleRepository.save(q);
+		}
+		else return null;
 	}
 }

@@ -1,5 +1,6 @@
 package com.tkcoursemanagement.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,10 +54,17 @@ public class ExamService {
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if (data.isPresent()) {
 			Topic topic = data.get();
-//			return (List<Exam>) examRepository.findExamsForTopic(topicId);
-			return topic.getWidgets();
+			List<Widget> widgets = topic.getWidgets();
+			List<Widget> exams = new ArrayList<Widget>();
+			for (Widget w : widgets) {
+				
+				if ((w != null)&&(w.getWidgetType() != null) && (w.getWidgetType().equals("Exam"))) {
+					exams.add(w);
+				}
+			}
+			return exams;
 		}
-		return null;
+		else return null;
 	}
 	
 	

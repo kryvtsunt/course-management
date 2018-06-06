@@ -19,6 +19,7 @@ public class Question {
 	private String title;
 	private String subtitle;
 	private String type;
+
 	@ManyToOne
 	@JsonIgnore
 	private Exam exam;
