@@ -4,28 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Widget {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int id;
-	private String name;
-	private int widgetOrder;
-	private String text;
-	private String className;
-	private String style;
-	private String width;
-	private String height;
-	private String widgetType;
-	private int size;
-	private String href;
-	private String src;
-	private String listItems;
-	private String listType;
+	private String name;		// name of the widget
+	private int widgetOrder;	// order inside one topic
+	private String text;    	// text of the widget content
+	private String widgetType;  //Type of the widget - TODO: change to inheritance
+	private int size;			// font size
+	private String href;		// for link
+	private int width;			// width of the picture
+	private String src;			// for img
+	private String listType;	// type of the list
 	
 	@ManyToOne
 	@JsonIgnore
@@ -51,30 +50,7 @@ public class Widget {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getClassName() {
-		return className;
-	}
-	public void setClassName(String className) {
-		this.className = className;
-	}
-	public String getStyle() {
-		return style;
-	}
-	public void setStyle(String style) {
-		this.style = style;
-	}
-	public String getWidth() {
-		return width;
-	}
-	public void setWidth(String width) {
-		this.width = width;
-	}
-	public String getHeight() {
-		return height;
-	}
-	public void setHeight(String height) {
-		this.height = height;
-	}
+	
 	public String getWidgetType() {
 		return widgetType;
 	}
@@ -99,12 +75,7 @@ public class Widget {
 	public void setSrc(String src) {
 		this.src = src;
 	}
-	public String getListItems() {
-		return listItems;
-	}
-	public void setListItems(String listItems) {
-		this.listItems = listItems;
-	}
+
 	public String getListType() {
 		return listType;
 	}
@@ -122,6 +93,12 @@ public class Widget {
 	}
 	public void setWidgetOrder(int widgetOrder) {
 		this.widgetOrder = widgetOrder;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
 	}
 	
 	
