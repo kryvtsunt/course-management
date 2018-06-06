@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,7 +43,7 @@ public class QuestionService {
 	@Autowired
 	EssayQuestionRepository essayRepository;
 
-	@GetMapping("/api/multi/{questionId}")
+	@GetMapping("/api/questionMC/{questionId}")
 	public MultipleChoiceQuestion findMultiQuestionById(@PathVariable("questionId") int questionId) {
 		Optional<MultipleChoiceQuestion> optional = multipleChoiceRepository.findById(questionId);
 		if(optional.isPresent()) {
@@ -151,5 +152,22 @@ public class QuestionService {
 		if(optionalQuestion.isPresent()) {
 			essayRepository.deleteById(questionId);;
 		}
+	}
+	
+	
+	@PutMapping("/api/questionMC/{questionId}")
+	public MultipleChoiceQuestion updateMC(@PathVariable("questionId") int questionId, @RequestBody MultipleChoiceQuestion q) {
+		Optional<MultipleChoiceQuestion> optionalQuestion = multipleChoiceRepository.findById(questionId);
+		if(optionalQuestion.isPresent()) {
+			MultipleChoiceQuestion question = optionalQuestion.get();
+			question.setTitle(q.getTitle());
+			question.setSubtitle(q.getSubtitle());
+			question.setPoints(q.getPoints());
+			question.setOptions(q.getOptions());
+			question.setPoints(q.getPoints());
+			question.setCorrectOption(q.getCorrectOption());
+			return multipleChoiceRepository.save(question);
+		}
+		else return null;
 	}
 }

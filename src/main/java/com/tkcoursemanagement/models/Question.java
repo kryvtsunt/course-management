@@ -60,4 +60,5 @@ public class Question {
 	public void setExam(Exam exam) {
 		this.exam = exam;
 	}
+	
 }

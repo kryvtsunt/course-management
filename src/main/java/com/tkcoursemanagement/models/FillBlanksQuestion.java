@@ -7,13 +7,13 @@ import javax.persistence.Entity;
 @Entity
 public class FillBlanksQuestion extends Question {
 
-	private List<String> blankVariables;
+	private String blankVariables;
 
-	public List<String> getBlankVariables() {
+	public String getBlankVariables() {
 		return blankVariables;
 	}
 
-	public void setBlankVariables(List<String> blankVariables) {
+	public void setBlankVariables(String blankVariables) {
 		this.blankVariables = blankVariables;
 	}
 	
