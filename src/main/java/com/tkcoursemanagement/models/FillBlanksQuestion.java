@@ -1,21 +1,20 @@
 package com.tkcoursemanagement.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 
 @Entity
 public class FillBlanksQuestion extends Question {
-	private String options;
-	private int correctOption;
-	public String getOptions() {
-		return options;
+
+	private List<String> blankVariables;
+
+	public List<String> getBlankVariables() {
+		return blankVariables;
 	}
-	public void setOptions(String options) {
-		this.options = options;
+
+	public void setBlankVariables(List<String> blankVariables) {
+		this.blankVariables = blankVariables;
 	}
-	public int getCorrectOption() {
-		return correctOption;
-	}
-	public void setCorrectOption(int correctOption) {
-		this.correctOption = correctOption;
-	}
+	
 }

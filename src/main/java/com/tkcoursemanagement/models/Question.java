@@ -16,6 +16,7 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	private int points;
 	private String title;
 	private String subtitle;
 	private String type;
@@ -47,7 +48,6 @@ public class Question {
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	private int points;
 	public String getType() {
 		return type;
 	}

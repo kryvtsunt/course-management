@@ -108,13 +108,13 @@ public class QuestionService {
 		else return null;
 	}
 	
-	@PostMapping("/api/exam/{examId}/questionFB")
+	@PostMapping("/api/exam/{examId}/questionES")
 	public EssayQuestion  createEssay(@PathVariable("examId") int examId, @RequestBody EssayQuestion q) {
 		Optional<Exam> optionalExam = examRepository.findById(examId);
 		if(optionalExam.isPresent()) {
 			Exam exam = optionalExam.get();
 			q.setExam(exam);
-			q.setType("FB");
+			q.setType("ES");
 			return essayRepository.save(q);
 		}
 		else return null;
@@ -128,6 +128,7 @@ public class QuestionService {
 		}
 	}
 	
+	//*
 	@DeleteMapping("/api/questionMC/{questionId}")
 	public void deleteMultipleChoice(@PathVariable("questionId") int questionId) {
 		Optional<MultipleChoiceQuestion> optionalQuestion = multipleChoiceRepository.findById(questionId);
@@ -135,6 +136,8 @@ public class QuestionService {
 			multipleChoiceRepository.deleteById(questionId);;
 		}
 	}
+	
+	//*
 	@DeleteMapping("/api/questionFB/{questionId}")
 	public void deleteFillBlanks(@PathVariable("questionId") int questionId) {
 		Optional<FillBlanksQuestion> optionalQuestion = fillBlanksRepository.findById(questionId);
