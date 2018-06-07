@@ -183,7 +183,6 @@ public class QuestionService {
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
 			question.setOptions(q.getOptions());
-			question.setPoints(q.getPoints());
 			question.setCorrectOption(q.getCorrectOption());
 			return multipleChoiceRepository.save(question);
 		}
@@ -199,8 +198,35 @@ public class QuestionService {
 			question.setSubtitle(q.getSubtitle());
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
-			question.setPoints(q.getPoints());
 			return essayRepository.save(question);
+		}
+		else return null;
+	}
+	
+	@PutMapping("/api/questionFB/{questionId}")
+	public FillBlanksQuestion updateFB(@PathVariable("questionId") int questionId, @RequestBody FillBlanksQuestion q) {
+		Optional<FillBlanksQuestion> optionalQuestion = fillBlanksRepository.findById(questionId);
+		if(optionalQuestion.isPresent()) {
+			FillBlanksQuestion question = optionalQuestion.get();
+			question.setTitle(q.getTitle());		
+			question.setSubtitle(q.getSubtitle());
+			question.setDescription(q.getDescription());
+			question.setPoints(q.getPoints());
+			return fillBlanksRepository.save(question);
+		}
+		else return null;
+	}
+	
+	@PutMapping("/api/questionTF/{questionId}")
+	public TrueFalseQuestion updateTF(@PathVariable("questionId") int questionId, @RequestBody TrueFalseQuestion q) {
+		Optional<TrueFalseQuestion> optionalQuestion = trueFalseRepository.findById(questionId);
+		if(optionalQuestion.isPresent()) {
+			TrueFalseQuestion question = optionalQuestion.get();
+			question.setTitle(q.getTitle());		
+			question.setSubtitle(q.getSubtitle());
+			question.setDescription(q.getDescription());
+			question.setPoints(q.getPoints());
+			return trueFalseRepository.save(question);
 		}
 		else return null;
 	}
