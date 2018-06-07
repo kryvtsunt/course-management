@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tkcoursemanagement.models.Assignment;
+import com.tkcoursemanagement.models.EssayQuestion;
 import com.tkcoursemanagement.models.Exam;
 import com.tkcoursemanagement.models.Topic;
 import com.tkcoursemanagement.models.Widget;
@@ -46,7 +47,7 @@ public class AssignmentService {
 	
 	
 	@GetMapping("/api/topic/{topicId}/assignment")
-	public List<Widget> findAllExamsForTopic(@PathVariable("topicId") int topicId) {
+	public List<Widget> findAllAssignmentsForTopic(@PathVariable("topicId") int topicId) {
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if (data.isPresent()) {
 			Topic topic = data.get();
@@ -80,6 +81,27 @@ public class AssignmentService {
 		if (data.isPresent()) {
 			assignmentRepository.deleteById(assignmentId);
 		}
+	}
+	
+	@PutMapping("/api/assignment/{assignmentId}")
+	public Assignment updateAssignment(@PathVariable("assignmentId") int assignmentId, @RequestBody Assignment q) {
+		Optional<Assignment> optionalAssignment = assignmentRepository.findById(assignmentId);
+		if(optionalAssignment.isPresent()) {
+			Assignment a = optionalAssignment.get();
+			a.setTitle(q.getTitle());		
+			a.setDescription(q.getDescription());
+			return assignmentRepository.save(a);
+		}
+		else return null;
+	}
+	
+	@GetMapping("/api/assignment/{assignmentId}")
+	public Assignment findAssignmentnById(@PathVariable("assignmentId") int assignmentId) {
+		Optional<Assignment> optional = assignmentRepository.findById(assignmentId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		else return null;
 	}
 	
 	
