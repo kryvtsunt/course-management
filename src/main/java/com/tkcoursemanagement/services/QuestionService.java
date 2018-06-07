@@ -212,6 +212,7 @@ public class QuestionService {
 			question.setSubtitle(q.getSubtitle());
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
+			question.setBlankVariables(q.getBlankVariables());
 			return fillBlanksRepository.save(question);
 		}
 		else return null;
@@ -226,6 +227,7 @@ public class QuestionService {
 			question.setSubtitle(q.getSubtitle());
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
+			question.setTrue(q.isTrue());
 			return trueFalseRepository.save(question);
 		}
 		else return null;
