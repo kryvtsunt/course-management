@@ -19,6 +19,7 @@ public class Question {
 	private int points;
 	private String title;
 	private String subtitle;
+	private String description;
 	private String type;
 
 	@ManyToOne
@@ -59,6 +60,12 @@ public class Question {
 	}
 	public void setExam(Exam exam) {
 		this.exam = exam;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

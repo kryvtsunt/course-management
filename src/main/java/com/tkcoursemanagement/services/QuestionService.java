@@ -51,10 +51,28 @@ public class QuestionService {
 		}
 		return null;
 	}
+	
+	@GetMapping("/api/questionES/{questionId}")
+	public EssayQuestion findEssayQuestionById(@PathVariable("questionId") int questionId) {
+		Optional<EssayQuestion> optional = essayRepository.findById(questionId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
 
-	@GetMapping("/api/truefalse/{questionId}")
+	@GetMapping("/api/questionTF/{questionId}")
 	public TrueFalseQuestion findTrueFalseQuestionById(@PathVariable("questionId") int questionId) {
 		Optional<TrueFalseQuestion> optional = trueFalseRepository.findById(questionId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+	
+	@GetMapping("/api/questionFB/{questionId}")
+	public FillBlanksQuestion findFillBlanksQuestionById(@PathVariable("questionId") int questionId) {
+		Optional<FillBlanksQuestion> optional = fillBlanksRepository.findById(questionId);
 		if(optional.isPresent()) {
 			return optional.get();
 		}
@@ -160,13 +178,29 @@ public class QuestionService {
 		Optional<MultipleChoiceQuestion> optionalQuestion = multipleChoiceRepository.findById(questionId);
 		if(optionalQuestion.isPresent()) {
 			MultipleChoiceQuestion question = optionalQuestion.get();
-			question.setTitle(q.getTitle());
+			question.setTitle(q.getTitle());		
 			question.setSubtitle(q.getSubtitle());
+			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
 			question.setOptions(q.getOptions());
 			question.setPoints(q.getPoints());
 			question.setCorrectOption(q.getCorrectOption());
 			return multipleChoiceRepository.save(question);
+		}
+		else return null;
+	}
+	
+	@PutMapping("/api/questionES/{questionId}")
+	public EssayQuestion updateES(@PathVariable("questionId") int questionId, @RequestBody EssayQuestion q) {
+		Optional<EssayQuestion> optionalQuestion = essayRepository.findById(questionId);
+		if(optionalQuestion.isPresent()) {
+			EssayQuestion question = optionalQuestion.get();
+			question.setTitle(q.getTitle());		
+			question.setSubtitle(q.getSubtitle());
+			question.setDescription(q.getDescription());
+			question.setPoints(q.getPoints());
+			question.setPoints(q.getPoints());
+			return essayRepository.save(question);
 		}
 		else return null;
 	}
