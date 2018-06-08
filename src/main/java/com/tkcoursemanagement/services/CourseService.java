@@ -22,42 +22,36 @@ import com.tkcoursemanagement.repositories.ModuleRepository;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class CourseService {
 	@Autowired
-	CourseRepository courseRepository;	
+	CourseRepository courseRepository;
 	@Autowired
 	ModuleRepository moduleRepository;
-	
+
 	@GetMapping("/api/course")
 	public Iterable<Course> findAllCourses() {
-		return courseRepository.findAll(); 
+		return courseRepository.findAll();
 	}
-	
+
 	@GetMapping("/api/course/{courseId}")
-	public Course findCourseByID(
-			@PathVariable("courseId") int courseId) {
-		Optional<Course> data = courseRepository.findById(courseId); 
+	public Course findCourseByID(@PathVariable("courseId") int courseId) {
+		Optional<Course> data = courseRepository.findById(courseId);
 		if (data.isPresent()) {
 			return data.get();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
-	
+
 	@PostMapping("/api/course")
-	public Course createCourse
-	(@RequestBody Course course) {
+	public Course createCourse(@RequestBody Course course) {
 		Date date = new Date(System.currentTimeMillis());
 		course.setModified(date);
 		course.setCreated(date);
-			return courseRepository.save(course);
+		return courseRepository.save(course);
 	}
-	
+
 	@DeleteMapping("/api/course/{courseId}")
-	public void deleteCourse(
-	@PathVariable("courseId") int id) {
+	public void deleteCourse(@PathVariable("courseId") int id) {
 		courseRepository.deleteById(id);
 	}
 
-
 }
-

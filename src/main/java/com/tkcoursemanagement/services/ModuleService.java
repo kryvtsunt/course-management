@@ -19,7 +19,6 @@ import com.tkcoursemanagement.repositories.ModuleRepository;
 import com.tkcoursemanagement.models.Course;
 import com.tkcoursemanagement.models.Module;
 
-
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class ModuleService {
@@ -27,32 +26,27 @@ public class ModuleService {
 	CourseRepository courseRepository;
 	@Autowired
 	ModuleRepository moduleRepository;
-	
+
 	@GetMapping("/api/course/{courseId}/module")
-	public List<Module> findAllModulesForCourse(
-			@PathVariable("courseId") int courseId) {
-		Optional<Course> data =
-	courseRepository.findById(courseId);
-		if(data.isPresent()) {
+	public List<Module> findAllModulesForCourse(@PathVariable("courseId") int courseId) {
+		Optional<Course> data = courseRepository.findById(courseId);
+		if (data.isPresent()) {
 			Course course = data.get();
 			return course.getModules();
 		}
-		return null;		
+		return null;
 	}
-	
+
 	@GetMapping("/api/module")
 	public List<Module> findAllModules() {
 		List<Module> data = (List<Module>) moduleRepository.findAll();
-		return data;	
+		return data;
 	}
 
-	
 	@PostMapping("/api/course/{courseId}/module")
-	public Module createModule(
-			@PathVariable("courseId") int courseId,
-			@RequestBody Module newModule) {
+	public Module createModule(@PathVariable("courseId") int courseId, @RequestBody Module newModule) {
 		Optional<Course> data = courseRepository.findById(courseId);
-		if(data.isPresent()) {
+		if (data.isPresent()) {
 			Optional<Course> dat = courseRepository.findById(courseId);
 			if (dat.isPresent()) {
 				Course course = dat.get();
@@ -65,13 +59,11 @@ public class ModuleService {
 		}
 		return null;
 	}
-	
+
 	@DeleteMapping("/api/course/{courseId}/module/{moduleId}")
-	public void deleteModule(
-			@PathVariable("courseId") int courseId,
-			@PathVariable("moduleId") int moduleId) {
+	public void deleteModule(@PathVariable("courseId") int courseId, @PathVariable("moduleId") int moduleId) {
 		Optional<Module> data = moduleRepository.findById(moduleId);
-		if(data.isPresent()) {
+		if (data.isPresent()) {
 			Optional<Course> dat = courseRepository.findById(courseId);
 			if (dat.isPresent()) {
 				Course course = dat.get();
@@ -81,15 +73,13 @@ public class ModuleService {
 			moduleRepository.deleteById(moduleId);
 		}
 	}
-	
+
 	@GetMapping("/api/module/{moduleId}")
-	public Module findModuleByID(
-			@PathVariable("moduleId") int moduleId) {
-		Optional<Module> data = moduleRepository.findById(moduleId); 
+	public Module findModuleByID(@PathVariable("moduleId") int moduleId) {
+		Optional<Module> data = moduleRepository.findById(moduleId);
 		if (data.isPresent()) {
 			return data.get();
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

@@ -25,35 +25,34 @@ import com.tkcoursemanagement.repositories.WidgetRepository;
 @RestController
 @CrossOrigin(origins = "*")
 public class WidgetService {
-	
+
 	@Autowired
 	TopicRepository topicRepository;
-	
+
 	@Autowired
 	WidgetRepository widgetRepository;
-	
+
 	@Autowired
 	ExamRepository examRepository;
-	
+
 	@Autowired
 	AssignmentRepository assignmentRepository;
-	
-	
-	@GetMapping ("/api/widget")
+
+	@GetMapping("/api/widget")
 	public List<Widget> findAllWidgets() {
-		return (List<Widget>) widgetRepository.findAll();	
+		return (List<Widget>) widgetRepository.findAll();
 	}
-	
-	@GetMapping ("/api/widget/{widgetId}")
+
+	@GetMapping("/api/widget/{widgetId}")
 	public Widget findWidget(@PathVariable("widgetId") int widgetId) {
-		Optional<Widget> data = widgetRepository.findById(widgetId);	
-		if (data.isPresent()){
+		Optional<Widget> data = widgetRepository.findById(widgetId);
+		if (data.isPresent()) {
 			Widget widget = data.get();
 			return widget;
 		}
 		return null;
 	}
-	
+
 	@GetMapping("/api/topic/{topicId}/widget")
 	public List<Widget> findAllWidgetsForTopic(@PathVariable("topicId") int topicId) {
 		Optional<Topic> data = topicRepository.findById(topicId);
@@ -63,15 +62,14 @@ public class WidgetService {
 		}
 		return null;
 	}
-	
-	
+
 	@PostMapping("/api/widget")
 	public List<Widget> saveWidgets(@RequestBody List<Widget> widgets) {
 		widgetRepository.deleteAll();
 		return (List<Widget>) widgetRepository.saveAll(widgets);
-		
+
 	}
-	
+
 	@PostMapping("/api/topic/{topicId}/widget")
 	public List<Widget> saveWidgetsForTopic(@RequestBody List<Widget> widgets, @PathVariable("topicId") int topicId) {
 		Optional<Topic> data = topicRepository.findById(topicId);
@@ -83,23 +81,24 @@ public class WidgetService {
 			}
 			for (Widget w : widgets) {
 				w.setTopic(topic);
-//				if (w.getWidgetType().equals("Exam")) {
-//					Exam e = (Exam) w;
-//					examRepository.save(e);
-//				} else if (w.getWidgetType().equals("Assignment")) {
-//					Assignment a = (Assignment) w;
-//					assignmentRepository.save(a);
-//				}
-//				else {
-//				System.out.println(w.getWidgetType());
+				// if (w.getWidgetType().equals("Exam")) {
+				// Exam e = (Exam) w;
+				// examRepository.save(e);
+				// } else if (w.getWidgetType().equals("Assignment")) {
+				// Assignment a = (Assignment) w;
+				// assignmentRepository.save(a);
+				// }
+				// else {
+				// System.out.println(w.getWidgetType());
 				widgetRepository.save(w);
-//				}
+				// }
 			}
 			return widgets;
 		}
 		return null;
-		
+
 	}
+
 	@PutMapping("/api/widget/{widgetId}")
 	public Widget updateWidget(@RequestBody Widget widget, @PathVariable("widgetId") int widgetId) {
 		Optional<Widget> data = widgetRepository.findById(widgetId);
@@ -109,9 +108,7 @@ public class WidgetService {
 		}
 		return null;
 	}
-	
 
-	
 	@DeleteMapping("/api/widget/{widgetId}")
 	public void deleteWidget(@PathVariable("widgetId") int widgetId) {
 		Optional<Widget> data = widgetRepository.findById(widgetId);
@@ -119,8 +116,5 @@ public class WidgetService {
 			widgetRepository.deleteById(widgetId);
 		}
 	}
-	
 
-	
-	
 }

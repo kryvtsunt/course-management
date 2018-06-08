@@ -46,16 +46,16 @@ public class QuestionService {
 	@GetMapping("/api/questionMC/{questionId}")
 	public MultipleChoiceQuestion findMultiQuestionById(@PathVariable("questionId") int questionId) {
 		Optional<MultipleChoiceQuestion> optional = multipleChoiceRepository.findById(questionId);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
 	}
-	
+
 	@GetMapping("/api/questionES/{questionId}")
 	public EssayQuestion findEssayQuestionById(@PathVariable("questionId") int questionId) {
 		Optional<EssayQuestion> optional = essayRepository.findById(questionId);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
@@ -64,172 +64,178 @@ public class QuestionService {
 	@GetMapping("/api/questionTF/{questionId}")
 	public TrueFalseQuestion findTrueFalseQuestionById(@PathVariable("questionId") int questionId) {
 		Optional<TrueFalseQuestion> optional = trueFalseRepository.findById(questionId);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
 	}
-	
+
 	@GetMapping("/api/questionFB/{questionId}")
 	public FillBlanksQuestion findFillBlanksQuestionById(@PathVariable("questionId") int questionId) {
 		Optional<FillBlanksQuestion> optional = fillBlanksRepository.findById(questionId);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
 	}
-	
+
 	@GetMapping("/api/exam/{examId}/question")
 	public List<Question> findAllQuestionsForExam(@PathVariable("examId") int examId) {
 		Optional<Exam> optionalExam = examRepository.findById(examId);
-		if(optionalExam.isPresent()) {
+		if (optionalExam.isPresent()) {
 			Exam exam = optionalExam.get();
 			List<Question> questions = exam.getQuestions();
 			return questions;
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
-	
+
 	@PostMapping("/api/exam/{examId}/questionTF")
-	public TrueFalseQuestion  createTrueFalse(@PathVariable("examId") int examId, @RequestBody TrueFalseQuestion q) {
+	public TrueFalseQuestion createTrueFalse(@PathVariable("examId") int examId, @RequestBody TrueFalseQuestion q) {
 		Optional<Exam> optionalExam = examRepository.findById(examId);
-		if(optionalExam.isPresent()) {
+		if (optionalExam.isPresent()) {
 			Exam exam = optionalExam.get();
 			q.setExam(exam);
 			q.setType("TF");
 			return trueFalseRepository.save(q);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@PostMapping("/api/exam/{examId}/questionMC")
-	public MultipleChoiceQuestion  createMultiple(@PathVariable("examId") int examId, @RequestBody MultipleChoiceQuestion q) {
+	public MultipleChoiceQuestion createMultiple(@PathVariable("examId") int examId,
+			@RequestBody MultipleChoiceQuestion q) {
 		Optional<Exam> optionalExam = examRepository.findById(examId);
-		if(optionalExam.isPresent()) {
+		if (optionalExam.isPresent()) {
 			Exam exam = optionalExam.get();
 			q.setExam(exam);
 			q.setType("MC");
 			return multipleChoiceRepository.save(q);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@PostMapping("/api/exam/{examId}/questionFB")
-	public FillBlanksQuestion  createFillBlanks(@PathVariable("examId") int examId, @RequestBody FillBlanksQuestion q) {
+	public FillBlanksQuestion createFillBlanks(@PathVariable("examId") int examId, @RequestBody FillBlanksQuestion q) {
 		Optional<Exam> optionalExam = examRepository.findById(examId);
-		if(optionalExam.isPresent()) {
+		if (optionalExam.isPresent()) {
 			Exam exam = optionalExam.get();
 			q.setExam(exam);
 			q.setType("FB");
 			return fillBlanksRepository.save(q);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@PostMapping("/api/exam/{examId}/questionES")
-	public EssayQuestion  createEssay(@PathVariable("examId") int examId, @RequestBody EssayQuestion q) {
+	public EssayQuestion createEssay(@PathVariable("examId") int examId, @RequestBody EssayQuestion q) {
 		Optional<Exam> optionalExam = examRepository.findById(examId);
-		if(optionalExam.isPresent()) {
+		if (optionalExam.isPresent()) {
 			Exam exam = optionalExam.get();
 			q.setExam(exam);
 			q.setType("ES");
 			return essayRepository.save(q);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@DeleteMapping("/api/questionTF/{questionId}")
 	public void deleteTrueFalse(@PathVariable("questionId") int questionId) {
 		Optional<TrueFalseQuestion> optionalQuestion = trueFalseRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
-			trueFalseRepository.deleteById(questionId);;
+		if (optionalQuestion.isPresent()) {
+			trueFalseRepository.deleteById(questionId);
+			;
 		}
 	}
-	
-	//*
+
+	// *
 	@DeleteMapping("/api/questionMC/{questionId}")
 	public void deleteMultipleChoice(@PathVariable("questionId") int questionId) {
 		Optional<MultipleChoiceQuestion> optionalQuestion = multipleChoiceRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
-			multipleChoiceRepository.deleteById(questionId);;
+		if (optionalQuestion.isPresent()) {
+			multipleChoiceRepository.deleteById(questionId);
+			;
 		}
 	}
-	
-	//*
+
+	// *
 	@DeleteMapping("/api/questionFB/{questionId}")
 	public void deleteFillBlanks(@PathVariable("questionId") int questionId) {
 		Optional<FillBlanksQuestion> optionalQuestion = fillBlanksRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
-			fillBlanksRepository.deleteById(questionId);;
+		if (optionalQuestion.isPresent()) {
+			fillBlanksRepository.deleteById(questionId);
+			;
 		}
 	}
+
 	@DeleteMapping("/api/questionES/{questionId}")
 	public void deleteEssay(@PathVariable("questionId") int questionId) {
 		Optional<EssayQuestion> optionalQuestion = essayRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
-			essayRepository.deleteById(questionId);;
+		if (optionalQuestion.isPresent()) {
+			essayRepository.deleteById(questionId);
+			;
 		}
 	}
-	
-	
+
 	@PutMapping("/api/questionMC/{questionId}")
-	public MultipleChoiceQuestion updateMC(@PathVariable("questionId") int questionId, @RequestBody MultipleChoiceQuestion q) {
+	public MultipleChoiceQuestion updateMC(@PathVariable("questionId") int questionId,
+			@RequestBody MultipleChoiceQuestion q) {
 		Optional<MultipleChoiceQuestion> optionalQuestion = multipleChoiceRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
+		if (optionalQuestion.isPresent()) {
 			MultipleChoiceQuestion question = optionalQuestion.get();
-			question.setTitle(q.getTitle());		
+			question.setTitle(q.getTitle());
 			question.setSubtitle(q.getSubtitle());
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
 			question.setOptions(q.getOptions());
 			question.setCorrectOption(q.getCorrectOption());
 			return multipleChoiceRepository.save(question);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@PutMapping("/api/questionES/{questionId}")
 	public EssayQuestion updateES(@PathVariable("questionId") int questionId, @RequestBody EssayQuestion q) {
 		Optional<EssayQuestion> optionalQuestion = essayRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
+		if (optionalQuestion.isPresent()) {
 			EssayQuestion question = optionalQuestion.get();
-			question.setTitle(q.getTitle());		
+			question.setTitle(q.getTitle());
 			question.setSubtitle(q.getSubtitle());
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
 			return essayRepository.save(question);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@PutMapping("/api/questionFB/{questionId}")
 	public FillBlanksQuestion updateFB(@PathVariable("questionId") int questionId, @RequestBody FillBlanksQuestion q) {
 		Optional<FillBlanksQuestion> optionalQuestion = fillBlanksRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
+		if (optionalQuestion.isPresent()) {
 			FillBlanksQuestion question = optionalQuestion.get();
-			question.setTitle(q.getTitle());		
+			question.setTitle(q.getTitle());
 			question.setSubtitle(q.getSubtitle());
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
-			question.setBlankVariables(q.getBlankVariables());
+			question.setBlank(q.getBlank());
 			return fillBlanksRepository.save(question);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@PutMapping("/api/questionTF/{questionId}")
 	public TrueFalseQuestion updateTF(@PathVariable("questionId") int questionId, @RequestBody TrueFalseQuestion q) {
 		Optional<TrueFalseQuestion> optionalQuestion = trueFalseRepository.findById(questionId);
-		if(optionalQuestion.isPresent()) {
+		if (optionalQuestion.isPresent()) {
 			TrueFalseQuestion question = optionalQuestion.get();
-			question.setTitle(q.getTitle());		
+			question.setTitle(q.getTitle());
 			question.setSubtitle(q.getSubtitle());
 			question.setDescription(q.getDescription());
 			question.setPoints(q.getPoints());
-			question.setTrue(q.isTrue());
+			question.setTrue(q.getTrue());
+
 			return trueFalseRepository.save(question);
-		}
-		else return null;
+		} else
+			return null;
 	}
 }

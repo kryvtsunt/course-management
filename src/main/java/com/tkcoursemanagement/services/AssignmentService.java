@@ -27,25 +27,24 @@ import com.tkcoursemanagement.repositories.WidgetRepository;
 @RestController
 @CrossOrigin(origins = "*")
 public class AssignmentService {
-	
+
 	@Autowired
 	TopicRepository topicRepository;
-	
+
 	@Autowired
 	WidgetRepository widgetRepository;
-	
+
 	@Autowired
 	ExamRepository examRepository;
-	
+
 	@Autowired
 	AssignmentRepository assignmentRepository;
-	
-	@GetMapping ("/api/assignment")
+
+	@GetMapping("/api/assignment")
 	public List<Exam> findAllExams() {
-		return (List<Exam>) examRepository.findAll();	
+		return (List<Exam>) examRepository.findAll();
 	}
-	
-	
+
 	@GetMapping("/api/topic/{topicId}/assignment")
 	public List<Widget> findAllAssignmentsForTopic(@PathVariable("topicId") int topicId) {
 		Optional<Topic> data = topicRepository.findById(topicId);
@@ -62,7 +61,7 @@ public class AssignmentService {
 		}
 		return null;
 	}
-	
+
 	@PostMapping("/api/topic/{topicId}/assignment")
 	public Assignment createAssignment(@PathVariable("topicId") int topicId, @RequestBody Assignment assignment) {
 		Optional<Topic> data = topicRepository.findById(topicId);
@@ -71,10 +70,10 @@ public class AssignmentService {
 			assignment.setTopic(topic);
 			assignment.setWidgetType("Assignment");
 			return assignmentRepository.save(assignment);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@DeleteMapping("/api/assignment/{assignmentId}")
 	public void deleteAssignment(@PathVariable("assignmentId") int assignmentId) {
 		Optional<Assignment> data = assignmentRepository.findById(assignmentId);
@@ -82,28 +81,26 @@ public class AssignmentService {
 			assignmentRepository.deleteById(assignmentId);
 		}
 	}
-	
+
 	@PutMapping("/api/assignment/{assignmentId}")
 	public Assignment updateAssignment(@PathVariable("assignmentId") int assignmentId, @RequestBody Assignment q) {
 		Optional<Assignment> optionalAssignment = assignmentRepository.findById(assignmentId);
-		if(optionalAssignment.isPresent()) {
+		if (optionalAssignment.isPresent()) {
 			Assignment a = optionalAssignment.get();
-			a.setTitle(q.getTitle());		
+			a.setTitle(q.getTitle());
 			a.setDescription(q.getDescription());
 			return assignmentRepository.save(a);
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
+
 	@GetMapping("/api/assignment/{assignmentId}")
 	public Assignment findAssignmentnById(@PathVariable("assignmentId") int assignmentId) {
 		Optional<Assignment> optional = assignmentRepository.findById(assignmentId);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			return optional.get();
-		}
-		else return null;
+		} else
+			return null;
 	}
-	
-	
-}
 
+}
