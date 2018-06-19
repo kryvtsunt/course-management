@@ -11,6 +11,7 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
+	private String status;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -49,5 +50,12 @@ public class Course {
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	
 }
